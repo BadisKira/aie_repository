@@ -4,7 +4,11 @@
     position: relative;
     margin: 0px auto !important;
     padding: 0 !important;
+
+    /* width: 0px;
+    height: 0px; */
 }
+
 
 .destination-paper:before{
     content: "";
@@ -27,4 +31,6 @@
     bottom: 5px;
     left: 5px;
     word-wrap: break-word;
+
+    /* opacity: 0; */
 }

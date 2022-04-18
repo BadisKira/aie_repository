@@ -12,7 +12,7 @@ const CardV = ({ destination, price, img }) => {
 
 
     return (
-        <Card sx={{ maxWidth: 345, margin: "0px auto" }} elevation={7}>
+        <Card sx={{ maxWidth: 345, margin: "0px auto" }} elevation={7} className="card">
             <CardActionArea>
                 <CardMedia
                     component="img"

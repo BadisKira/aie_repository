@@ -1,0 +1,18 @@
+.nav-list{
+    width: 100%;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    column-gap: 5px;
+    border-bottom: 2px solid white;
+}
+
+
+.nav-list>li{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1rem;
+
+}

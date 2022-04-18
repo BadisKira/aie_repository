@@ -1,33 +1,45 @@
-import NavBar from "../components/navbar/navbar";
+import NavBar from "../components/navbar";
 import Footer from "../components/footer";
 import CardsContainer from "../components/cardsContainer";
 import DestinationsContainer from "../components/destinations";
+import Banniere from "../components/banniere";
+import { useRef, useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/all";
+
+gsap.registerPlugin(ScrollTrigger)
 
 const Home = () => {
-    return (
-        <>
-            <section style={{ width: "100%", height: "100vh", backgroundImage: `url(${process.env.PUBLIC_URL + "/assets/fond.jpg"}) ` }}>
-                <NavBar />
-            </section>
+    const homeRef = useRef(null);
 
-            {/* <section style={{ margin: "50px 20px", display: 'flex', justifyContent: "space-evenly" }}>
-                <CardV destination={"Randonnée à l’assaut de Yemma Gouraya"} img={"https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/57/fc/74/caption.jpg?w=300&h=300&s=1"} />
-                <CardV destination={"Randonnée à l’assaut de Yemma Gouraya Yemma Gouraya"} />
-                <CardV destination={"Randonnée à l’assaut de  Yemma Gouraya Gouraya"} />
-                <CardV destination={"Randonnée à l’assaut de Yemma Gouraya"} />
-            </section> */}
+    useEffect(() => {
+        // const titleB = homeRef.current.querySelector('.banniere-text');
+        // const appbar = homeRef.current.querySelector('.app-bar');
+        // gsap.fromTo(appbar, { backgroundColor: "transparent", duration: .5, delay: 0 }, {
+        //     backgroundColor: "grey",
+        //     duration: 0.5,
+        //     delay: 0,
+        //     scrollTrigger: {
+        //         trigger: titleB,
+        //         toggleActions: "restart none reverse none",
+        //         start: "+=0 70",
+        //         end: "+=50 70",
+        //     }
+
+        // });
+
+
+
+    }, []);
+    return (
+        <div ref={homeRef}>
+            <NavBar />
+            <Banniere />
             <CardsContainer />
             <DestinationsContainer />
-
-            {/* <section style={{ margin: "50px 20px", display: 'flex', justifyContent: "space-evenly" }}>
-                <Destination img={""} dest="Porto Rico" />
-                <Destination img={""}
-                    dest="Porto Rico" />
-                <Destination img={""} dest="France Paris la ville tu connais" />
-            </section> */}
             <Footer />
+        </div>
 
-        </>
     )
 
 };

@@ -16,7 +16,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 const Footer2elt = ({ icon, msg }) => {
     return (
         <div className="contact-info">
-            <IconButton >
+            <IconButton style={{ color: "white" }}>
                 {icon}
             </IconButton>
 

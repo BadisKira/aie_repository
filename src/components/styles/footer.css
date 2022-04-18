@@ -43,20 +43,19 @@ footer{
     margin-bottom: auto;
     margin-top: 10px;
      width: 100%;
-    text-align: center;
+    text-align: center !important;
 }
 
 
 .footer-sec2>.contact-info{
-    width: 50%;
-    min-width: 280px;
+    min-width: 250px;
     color: white !important;
     margin-bottom: 20px;
     margin-left: auto;
     margin-right: auto;
     display: grid;
     grid-template-columns: 1fr 3fr;
-    text-align: center;
+    text-align: start;
     align-items: center;
     
 }
