@@ -1,7 +1,7 @@
 import { Container, Typography, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
 import Destination from "./destination";
-import './styles/cards.css';
+// import '../styles/cards.css';
 
 import { useRef, useEffect, useLayoutEffect } from "react";
 import { gsap } from "gsap";
@@ -12,7 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 const DestinationsContainer = () => {
 
     const desRef = useRef(null);
-    // const tl = useRef();
+    const tl = useRef();
     // useLayoutEffect(() => {
     //     const dests = desRef.current.querySelectorAll('.destination-paper');
     //     const destsTxt = desRef.current.querySelectorAll('.destination-text ');

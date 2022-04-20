@@ -1,7 +1,7 @@
 import { Container, Grid, Typography, TextField } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
-import './styles/banniere.css';
+// import '../styles/banniere.css';
 import { gsap } from "gsap";
 import { CSSRulePlugin } from 'gsap/all';
 

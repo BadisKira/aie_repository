@@ -1,5 +1,5 @@
 import { Paper, Typography } from "@mui/material";
-import "./styles/destination.css"
+// import "../styles/destination.css"
 const Destination = ({ dest, img }) => {
     return (<>
         <Paper elevation={5} className="destination-paper" square

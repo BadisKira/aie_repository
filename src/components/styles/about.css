@@ -1,0 +1,21 @@
+/*********************************************/
+/********************LEFT PART COMPONENT *****************/
+.leftPartimg{
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+} 
+
+/*********************************************/
+/********************MINI CARDS COMPONENT *****************/
+.roundMiniCard {
+    height: 100px;
+    width: 100px;
+    margin: 10px auto 0px auto ;
+    background-color: #3a78c9;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white !important ;
+}

@@ -1,0 +1,81 @@
+
+.BannerImage{
+    position: relative;
+    height: 40vh;
+    text-align: center;
+}
+
+.BannerImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+}
+.centeredTextBannerImage{
+ 
+    color: #ffffff;
+}
+
+.centeredTextBannerImage{
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+
+
+.circleContactUs {
+    height: 75px;
+    width: 75px;
+    margin-top: 3vh;
+    background-color: #3a78c9;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.SmallerCircleContactUs{
+    height: 40px;
+    width: 40px;
+    margin-right: 2vh;
+    margin: 1vh;
+    background-color: #3a78c9;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.infoCardsContactUs{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items:center;
+    
+}
+
+.formContactUs {
+    margin: 1vh;
+    padding: 6vh;
+    border-radius: 25px;
+    background-color: #3a78c9
+}
+.contactUsTextField{
+    width: 30vw;
+    height:7vh;
+    background-color: aliceblue;
+    border: none;
+    border-radius: 20px;
+    padding: 0.5rem;
+    font-size: medium;
+    
+}
+
+.formContactUs label{
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    font-family: Helvetica, sans-serif;
+    
+}
