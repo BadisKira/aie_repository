@@ -62,9 +62,11 @@
     border-radius: 25px;
     background-color: #3a78c9
 }
+
 .contactUsTextField{
     width: 30vw;
-    height:7vh;
+    min-width: 280px !important;
+    height:50px;
     background-color: aliceblue;
     border: none;
     border-radius: 20px;
@@ -78,4 +80,11 @@
     font-weight: bold;
     font-family: Helvetica, sans-serif;
     
+}
+
+@media (max-width:769px) {
+    .contactUsTextField{
+    width: 90% ; 
+    background-color: brown !important;
+}
 }

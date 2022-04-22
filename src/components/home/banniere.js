@@ -1,10 +1,10 @@
-import { Container, Grid, Typography, TextField } from "@mui/material";
+import { Container, IconButton, Grid, Typography, TextField } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 // import '../styles/banniere.css';
 import { gsap } from "gsap";
 import { CSSRulePlugin } from 'gsap/all';
-
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useEffect } from "react";
 gsap.registerPlugin(CSSRulePlugin);
 
@@ -44,6 +44,28 @@ const Banniere = () => {
                                         <SearchIcon />
                                     </InputAdornment>
                                 ),
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <IconButton sx={{
+                                            backgroundColor: "black",
+                                            color: "white",
+                                            height: '56px',
+                                            width: "50px",
+                                            borderTopRightRadius: "15px",
+                                            borderBottomRightRadius: "15px",
+                                            //borderRadius: "15px",
+                                            fontSize: "20px",
+                                            transform: "translateX(14px)",
+                                            "&:hover": {
+                                                backgroundColor: "black"
+                                            }
+                                        }}>
+                                            <ArrowForwardIcon sx={{
+
+                                            }} />
+                                        </IconButton>
+                                    </InputAdornment>
+                                )
                             }}
                             sx={{
                                 backgroundColor: "white",

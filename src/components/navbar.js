@@ -37,7 +37,14 @@ const SideNav = ({ showSideNav, setShowSideNav }) => {
                     <Link to="/contact">Contact</Link>
                 </li>
             </ul>
-            <Button className="btn-connexion">Se connecter</Button>
+
+
+            <Button className="btn-connexion">
+
+                <Link to='/login' style={{ color: "black", fontSize: '15px' }}>
+                    Se connecter
+                </Link>
+            </Button>
 
         </div>
     );
@@ -51,6 +58,7 @@ const NavBar = () => {
     return (
         <>
             <AppBar
+                id="navbarId"
                 elevation={1}
                 className="app-bar"
                 position="absolute"
@@ -117,7 +125,9 @@ const NavBar = () => {
                                             },
                                         }}
                                     >
-                                        Se connecter
+                                        <Link to='/login' style={{ color: "black", fontSize: '15px' }}>
+                                            Se connecter
+                                        </Link>
                                     </Button>
                                 </Grid>
                             </>
