@@ -1,0 +1,117 @@
+/***************************************************************/
+/*************************BANNIERE COMPONENT ***********************/
+*{
+     --banniere-height:650px   ;
+}
+
+.banniere-container{
+   
+    width: 100%;
+    min-height: var(--banniere-height) ; 
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    text-align: center;
+    padding-bottom: 100px;
+
+    background-image: url('/public/assets/fond.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.banniere-container::before{
+    content: "";
+    position: absolute ; 
+    z-index: 0;
+    top: 0;
+    left: 0;
+    min-height: var(--banniere-height);
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+
+.banniere-text{
+    position: relative;
+    z-index: 2;
+    color: white !important;
+    font-weight:600 !important ;
+}
+
+ /* .banniere-text::before{
+  content: '';
+  height: 100%;
+  width: 100%;
+         background-color: rgba(0, 0, 0, 0.2);
+
+
+  position: absolute ; 
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+
+
+}  */
+
+/***********************************************************************************************/
+/******************************CARDS COMPONENT *************************************************/
+
+.see-more {
+    margin: 15px 0px 15px 0px;
+    text-align: end;
+}
+
+.see-more>a{
+    color: black ; 
+    text-decoration: underline;
+    font-size: 1rem ;;
+    font-weight: 400;
+
+    
+}
+
+/***********************************************************************************************/
+/****************************** DESTINATION COMPONENT *************************************************/
+
+.destination-paper {
+    max-width: 320px;
+    max-height: 320px;
+    position: relative;
+    margin: 0px auto !important;
+    padding: 0 !important;
+
+    /* max-height: 0px;
+    max-width: 0px; */
+}
+
+
+.destination-paper:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top , rgba(0,0,0,.2) , rgba(0,0,0,.1), rgba(0,0,0,.1),transparent);
+}
+
+.destination-paper>img {
+    width: 100%;
+    height: 100%;
+}
+
+.destination-paper>.destination-text {
+    color: rgba(255,255,255,1);
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    word-wrap: break-word;
+
+    /* opacity: 0; */
+}
+
+
