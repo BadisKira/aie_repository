@@ -4,11 +4,11 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
+import { CardActionArea, CardActions, Button } from '@mui/material';
 
 
 
-const CardV = ({ destination, price, img }) => {
+const CardVoyage = ({ destination, agence, tarif, img, actions = false }) => {
 
 
     return (
@@ -17,21 +17,39 @@ const CardV = ({ destination, price, img }) => {
                 <CardMedia
                     component="img"
                     height="150"
-                    image={"https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/57/fc/74/caption.jpg?w=300&h=300&s=1"}
+                    image={img}
                     alt="green iguana"
                 />
-                <CardContent>
+                <CardContent >
                     <Typography gutterBottom variant="subtitle1" component="div">
 
                         {destination}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        à 1500.00 DZD par adulte
+                        à {tarif} DZD par adulte
                     </Typography>
+
+                    {actions &&
+                        <>
+                            <Typography variant="body2" color="text.secondary">
+                                {agence}
+                            </Typography>
+                        </>
+                    }
+
+
+
                 </CardContent>
             </CardActionArea>
+            {actions &&
+                <CardActions>
+                    <Button size="medium" variant="contained" sx={{ textTransform: "none" }}>
+                        voir tarifs
+                    </Button>
+                </CardActions>
+            }
         </Card>
     );
 
 };
-export default CardV;
+export default CardVoyage;

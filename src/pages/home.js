@@ -1,6 +1,6 @@
 import NavBar from "../components/navbar";
 import Footer from "../components/footer";
-import CardsContainer from "../components/home/cardsContainer";
+import CardsContainerVoyages from "../components/home/cardsContainer";
 import DestinationsContainer from "../components/home/destinations";
 import Banniere from "../components/home/banniere";
 import { useRef, useEffect } from "react";
@@ -35,7 +35,7 @@ const Home = () => {
         <div ref={homeRef}>
             <NavBar />
             <Banniere />
-            <CardsContainer />
+            <CardsContainerVoyages />
             <DestinationsContainer />
             <Footer />
         </div>

@@ -17,140 +17,147 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import "../components/styles/RegisterLogin.css";
-
-
+import RegisterForm from "../components/RegisterLogin/RegisterForm";
+import LoginForm from "../components/RegisterLogin/LoginForm";
 import NavBar from "../components/navbar";
 import Footer from "../components/footer";
 import BanniereT2 from "../components/banniereType2";
+import { loginClient, signupClient } from "../redux/clientSlice";
+import { useDispatch } from "react-redux";
 const theme = createTheme();
 
-const RegisterForm = () => {
+const LoginRegister = () => {
+  const [login, setLogin] = useState(true);
   const [showMDP, setShowMDP] = useState(false);
+  const [errInRegisterForm, seterrInRegisterForm] = useState(false);
+  const [errInLoginForm, setErrInLoginForm] = useState(false);
+  const dispatch = useDispatch();
+  const [registerInfo, setRegisterInfo] = useState({
+    nom: "",
+    prenom: "",
+    email: "",
+    numTel: "",
+    mdp: "",
+  });
 
+  const [registerError, setRegisterError] = useState({
+    nom: "",
+    prenom: "",
+    numTel: "",
+    email: "",
+  });
+
+  const [loginInfo, setLoginInfo] = useState({
+    email: "",
+    mdp: "",
+  });
+
+  //Mise à jours des champs de connexion
+  const handleChangeLogin = (event) => {
+    event.preventDefault();
+    const name = event.target.name;
+    const value = event.target.value;
+    setLoginInfo({ ...loginInfo, [name]: value });
+    console.log(value);
+  };
+
+  //Envie du formulaire de connexion
+  const handleSubmitLogin = (event) => {
+    event.preventDefault();
+    // dispatch(loginClient(loginInfo));
+    console.log("eren yeager login");
+
+  };
+
+  //mise à jour des champs à chaque changement
+  const handleChangeRegister = (event) => {
+    event.preventDefault();
+    const name = event.target.name;
+    const value = event.target.value;
+    setRegisterError({ nom: "", prenom: "", numTel: "", email: "" });
+    setRegisterInfo({ ...registerInfo, [name]: value });
+  };
+
+  //afficher or masqu le mot de passe
   const handleChangeSwitch = (event) => {
     setShowMDP(event.target.checked);
     console.log(showMDP);
   };
+
+  // envoie du formulaire
   const handleSubmitRegister = (event) => {
     event.preventDefault();
-    console.log(event.currentTarget);
-  };
-  return (
 
-    <Box
-      component="form"
-      noValidate
-      onSubmit={handleSubmitRegister}
-      sx={{ mt: 3 }}
-    >
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            name="firstName"
-            required
-            fullWidth
-            id="NomRegister"
-            label="Nom"
-            autoFocus
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            fullWidth
-            id="PrenomRegister"
-            label="Prénom"
-            name="PrenomRegister"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            fullWidth
-            id="email"
-            label="Adresse E-mail"
-            errorMessage="adresse e-mail invalide"
-            name="email"
-            type="email"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            fullWidth
-            name="NumeroTelephone"
-            label="Numéro de téléphone"
-            type="tel"
-            id="NumTelResgister"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            fullWidth
-            name="password"
-            label="Mot de passe"
-            type={showMDP ? "text" : "password"}
-            id="password"
-            autoComplete="new-password"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={<Switch checked={showMDP} onChange={handleChangeSwitch} />}
-            label="Afficher le mot de passe"
-          />
-        </Grid>
-      </Grid>
-    </Box>
-  );
-};
+    console.log("eren yeager register");
 
-const LoginForm = () => {
-  const handleSubmitLogin = (event) => {
-    event.preventDefault();
-    console.log(event.currentTarget);
+    setRegisterError({ nom: "", prenom: "", numTel: "", email: "" });
+
+    let regNom = new RegExp(/^[A-Za-z]+$/).test(registerInfo.nom);
+    let regPrenom = new RegExp(/^[A-Za-z]+$/).test(registerInfo.prenom);
+    let regNumTel = new RegExp(/^\d*$/).test(registerInfo.numTel);
+    let regEmail = new RegExp(
+      "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$"
+    ).test(registerInfo.email);
+
+    if (!regNom) {
+      seterrInRegisterForm(true);
+      setRegisterError((prevstate) => ({
+        ...prevstate,
+        nom: "le nom doit contenir que des chaines de caractères",
+      }));
+    }
+
+    if (!regPrenom) {
+      seterrInRegisterForm(true);
+      setRegisterError((prevstate) => ({
+        ...prevstate,
+        prenom: "le prénom doit contenir que des chaines de caractères",
+      }));
+    }
+
+    if (!regNumTel) {
+      seterrInRegisterForm(true);
+      setRegisterError((prevstate) => ({
+        ...prevstate,
+        numTel: "Veuillez entrer un numéro de telephone email valide",
+      }));
+    }
+
+    if (!regEmail) {
+      seterrInRegisterForm(true);
+      setRegisterError((prevstate) => ({
+        ...prevstate,
+        email: "Veuillez entrer une adresse email valide",
+      }));
+    };
+
+    //UGH MOST OF THESE HAVE TO MOVE OUT TO THE PARENT COMPONENT
+    if (!errInRegisterForm) {
+      dispatch(signupClient(registerInfo));
+    }
+
+
+    console.log(registerInfo);
+    console.log(registerError);
   };
 
-  return (
-    <Box
-      component="form"
-      noValidate
-      onSubmit={handleSubmitLogin}
-      sx={{ mt: 1 }}
-    >
-      <TextField
-        margin="normal"
-        required
-        fullWidth
-        id="email"
-        label="Adresse e-mail"
-        name="email"
-        autoFocus
-      />
-      <TextField
-        margin="normal"
-        required
-        fullWidth
-        name="motDePasse"
-        label="Mot de passe"
-        type="password"
-        id="motDePasse"
-      />
-    </Box>
-  );
-};
+  const [banniereText, setBanniereText] = useState('Connexion');
 
-const LoginRegister = () => {
-  const [login, setLogin] = useState(true);
-  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   return (
     <>
       <NavBar />
-      <BanniereT2 title="Inscription" />
+      <BanniereT2 title={banniereText} />
       <Container maxWidth="lg">
         <Grid container component="main" sx={{ marginY: "10vh" }}>
-          <Grid item xs={12} sm={8} md={6} component={Paper} elevation={6} square>
+          <Grid
+            item
+            xs={12}
+            sm={8}
+            md={6}
+            component={Paper}
+            elevation={6}
+            square
+          >
             <Box
               sx={{
                 my: 8,
@@ -171,16 +178,23 @@ const LoginRegister = () => {
                 {login ? "Connexion" : "Créer un compte"}
               </Typography>
 
-              {login ? <LoginForm /> : <RegisterForm />}
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2, backgroundColor: "#263a49", width: "50%" }}
-                onclick={() => setShowSuccessAlert(!showSuccessAlert)}
-              >
-                {login ? "Se connecter" : "S'inscrire"}
-              </Button>
+              {login ? (
+                <LoginForm
+                  loginInfo={loginInfo}
+                  onSubmitLogin={handleSubmitLogin}
+                  onChangeLogin={handleChangeLogin}
+                />
+              ) : (
+                <RegisterForm
+                  registerError={registerError}
+                  registerInfo={registerInfo}
+                  showMDP={showMDP}
+                  onChangeRegister={handleChangeRegister}
+                  onSubmitRegister={handleSubmitRegister}
+                  onChangeSwitchRegister={handleChangeSwitch}
+                />
+              )}
+
               {login ? (
                 <Grid container>
                   <Grid item xs>
@@ -193,7 +207,7 @@ const LoginRegister = () => {
                     <Link
                       sx={{ cursor: "pointer" }}
                       variant="body2"
-                      onClick={() => setLogin(!login)}
+                      onClick={() => { setLogin(!login); setBanniereText('Inscription') }}
                     >
                       Inscrivez vous
                     </Link>
@@ -212,7 +226,7 @@ const LoginRegister = () => {
                     <Link
                       sx={{ cursor: "pointer" }}
                       variant="body2"
-                      onClick={() => setLogin(!login)}
+                      onClick={() => { setLogin(!login); setBanniereText('Connexion') }}
                     >
                       Connectez-vous
                     </Link>

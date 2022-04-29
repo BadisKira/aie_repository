@@ -6,15 +6,16 @@ import ArrowUp from "./components/ArrowUp";
 import { Route, Routes } from "react-router-dom";
 import ContactUs from "./pages/ContactUs";
 import RegisterForm from "./pages/LoginRegister";
+import HotelAndAgences from "./pages/hotelsAndagences";
 
 function App() {
   return (<>
 
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path='/hotels' element={<Home />} />
+      <Route path='/hotels' element={<HotelAndAgences />} />
       <Route path='/propos' element={<AboutUs />} />
-      <Route path='/voyages' element={<Home />} />
+      <Route path='/voyages' element={<HotelAndAgences />} />
       <Route path='/contact' element={<ContactUs />} />
       <Route path='/login' element={<RegisterForm />} />
       <Route path="*" element={<Error404 />} />

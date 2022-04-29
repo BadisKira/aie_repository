@@ -13,24 +13,32 @@ const DestinationsContainer = () => {
 
     const desRef = useRef(null);
     const tl = useRef();
-    // useLayoutEffect(() => {
-    //     const dests = desRef.current.querySelectorAll('.destination-paper');
-    //     const destsTxt = desRef.current.querySelectorAll('.destination-text ');
+    useLayoutEffect(() => {
+        const dests = desRef.current.querySelectorAll('.destination-paper');
+        const destsTxt = desRef.current.querySelectorAll('.destination-text ');
+        const desTitre = desRef.current.querySelector('h1');
 
 
-    //     tl.current = gsap.timeline()
-    //         .to(dests, {
-    //             maxWidth: '320px',
-    //             maxHeight: '320px',
-    //             duration: 1,
-    //             stagger: 0.5
-    //         }).to(destsTxt, {
-    //             opacity: 1
-    //         })
+        tl.current = gsap.timeline({
+            scrollTrigger: {
+                trigger: desTitre,
+                start: "top center",
+                end: "+=400",
+            }
+        })
+            .to(dests, {
+                // maxWidth: '320px',
+                // maxHeight: '320px',
+                opacity: 1,
+                duration: .5,
+                stagger: 0.5,
+            }).to(destsTxt, {
+                opacity: 1
+            })
 
 
 
-    // }, [])
+    }, []);
 
     return (
 

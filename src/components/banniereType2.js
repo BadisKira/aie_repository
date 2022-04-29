@@ -24,12 +24,16 @@ const BanniereT2 = ({ title }) => {
 
             }
         }}>
-            <Typography component='h1' variant="h1" sx={{
+            <Typography component='h1' variant="h1" sx={theme => ({
                 fontWeight: 700,
                 color: "white",
                 position: "relative",
-                zIndex: 2
-            }}>
+                zIndex: 2,
+                [theme.breakpoints.down('md')]: {
+                    fontWeight: 600,
+                    fontSize: "50px"
+                }
+            })}>
                 {title}
             </Typography>
         </Box>
