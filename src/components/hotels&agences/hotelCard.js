@@ -17,7 +17,7 @@ import { useTheme } from '@mui/material/styles';
 
 
 const func_desc = (desc, taille = 150) => {
-    console.log('big shit');
+
     if (desc.length > taille) {
         return desc.slice(0, taille) + '...';
     } else {
@@ -34,7 +34,7 @@ const favHeartStyle = {
 
 }
 
-const HotelCard = ({ key, title, img, desc, evaluation = 3.5, equipement = ["Wifi gratuit", "Sauna", 'Parking gratuit'], fav }) => {
+const HotelCard = ({ title, img, desc, evaluation = 2, equipement = ["Wifi gratuit", "Sauna", 'Parking gratuit'], fav }) => {
     const [favH, setFavH] = useState(fav);
     const theme = useTheme();;
     const media = useMediaQuery(theme.breakpoints.down('md'));
@@ -43,7 +43,7 @@ const HotelCard = ({ key, title, img, desc, evaluation = 3.5, equipement = ["Wif
     return (
         < >
 
-            <Card key={key} sx={theme => ({
+            <Card sx={theme => ({
                 width: "100% !important",
                 display: "flex",
                 position: "relative",
@@ -113,6 +113,8 @@ const HotelCard = ({ key, title, img, desc, evaluation = 3.5, equipement = ["Wif
                                     func_desc(desc, 100)
                                     : <>
                                         {desc}
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta, pariatur!
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo, provident?
                                     </>
                                 }
                             </Typography>
@@ -151,7 +153,7 @@ const HotelCard = ({ key, title, img, desc, evaluation = 3.5, equipement = ["Wif
 
                                 <Rating
                                     name="half-rating-read"
-                                    defaultValue={evaluation}
+                                    defaultValue={Number(evaluation)}
                                     precision={0.1}
                                     readOnly
                                     size="small"

@@ -1,7 +1,7 @@
 /***************************************************************/
 /*************************BANNIERE COMPONENT ***********************/
 *{
-     --banniere-height:650px   ;
+     --banniere-height:600px   ;
 }
 
 .banniere-container{
@@ -20,6 +20,8 @@
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+
+    margin-bottom: 75px ; 
 }
 
 .banniere-container::before{

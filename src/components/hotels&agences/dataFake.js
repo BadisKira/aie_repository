@@ -1,211 +1,209 @@
 export const hotelFakeData = [
     {
-        hotel_id: Math.ceil(Math.random() * 7),
-        hotel_name: "Hotel Cristal 2 ",
-        hotel_desc: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
-        hotel_eval: 4.5,
-        hotel_equipement: [
+        idh: 1,
+        nomh: "Hotel Cristal 2 ",
+        desch: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
+        note: 2,
+        equipementh: [
             "wifi gratuit",
             "Sauna", "Parking gratuit"
         ],
         hotel_fav: true,
-        hotel_img: process.env.PUBLIC_URL + "/assets/hotel3.jpg"
+        imgh: process.env.PUBLIC_URL + "/assets/hotel3.jpg"
 
     },
     {
-        hotel_id: Math.ceil(Math.random() * 7),
-        hotel_name: "Hotel Cristal 2 ",
-        hotel_desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.",
-        hotel_eval: 2,
-        hotel_equipement: [
+        idh: 2,
+        nomh: "Hotel Cristal 2 ",
+        desch: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.",
+        note: 1,
+        equipementh: [
             "wifi gratuit",
             "Sauna", "Restaurant"
         ],
         hotel_fav: true,
-        hotel_img: process.env.PUBLIC_URL + "/assets/hotel4.jpg"
+        imgh: process.env.PUBLIC_URL + "/assets/hotel4.jpg"
 
     },
 
     {
-        hotel_id: Math.ceil(Math.random() * 7),
-        hotel_name: "Hotel Cristal 2 ",
-        hotel_desc: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
-        hotel_eval: 5,
-        hotel_equipement: [
+        idh: 31,
+        nomh: "Hotel Cristal 2 ",
+        desch: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
+        note: 1,
+        equipementh: [
             "wifi gratuit",
             "Sauna"
         ],
         hotel_fav: true,
-        hotel_img: process.env.PUBLIC_URL + "/assets/hotel5.jpg"
+        imgh: process.env.PUBLIC_URL + "/assets/hotel5.jpg"
 
     },
     {
-        hotel_id: Math.ceil(Math.random() * 7),
-        hotel_name: "Hotel Cristal 2 ",
-        hotel_desc: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
-        hotel_eval: 4,
-        hotel_equipement: [
+        idh: 17,
+        nomh: "Hotel Cristal 2 ",
+        desch: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
+        note: 2,
+        equipementh: [
             "wifi gratuit",
             "Sauna"
         ],
         hotel_fav: true,
-        hotel_img: process.env.PUBLIC_URL + "/assets/hotel6.jpg"
+        imgh: process.env.PUBLIC_URL + "/assets/hotel6.jpg"
     }
     ,
     {
-        hotel_id: Math.ceil(Math.random() * 7),
-        hotel_name: "Hotel Cristal 2 ",
-        hotel_desc: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
-        hotel_eval: 3.5,
-        hotel_equipement: [
+        idh: 81,
+        nomh: "Hotel Cristal 2 ",
+        desch: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
+        note: 3,
+        equipementh: [
             "wifi gratuit",
             "Sauna"
         ],
         hotel_fav: true,
-        hotel_img: process.env.PUBLIC_URL + "/assets/hotel7.jpg"
+        imgh: process.env.PUBLIC_URL + "/assets/hotel7.jpg"
     }, {
-        hotel_id: Math.ceil(Math.random() * 7),
-        hotel_name: "Hotel Cristal 2 ",
-        hotel_desc: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
-        hotel_eval: 4.5,
-        hotel_equipement: [
+        idh: 1666,
+        nomh: "Hotel Cristal 2 ",
+        desch: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
+        note: 3,
+        equipementh: [
             "wifi gratuit",
             "Sauna", "Parking gratuit"
         ],
         hotel_fav: true,
-        hotel_img: process.env.PUBLIC_URL + "/assets/hotel3.jpg"
+        imgh: process.env.PUBLIC_URL + "/assets/hotel3.jpg"
 
     }, {
-        hotel_id: Math.ceil(Math.random() * 7),
-        hotel_name: "Hotel Cristal 2 ",
-        hotel_desc: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
-        hotel_eval: 4.5,
-        hotel_equipement: [
+        idh: 1745,
+        nomh: "Hotel Cristal 2 ",
+        desch: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
+        note: 5,
+        equipementh: [
             "wifi gratuit",
             "Sauna", "Parking gratuit"
         ],
         hotel_fav: true,
-        hotel_img: process.env.PUBLIC_URL + "/assets/hotel3.jpg"
+        imgh: process.env.PUBLIC_URL + "/assets/hotel3.jpg"
 
     }, {
-        hotel_id: Math.ceil(Math.random() * 7),
-        hotel_name: "Hotel Cristal 2 ",
-        hotel_desc: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
-        hotel_eval: 4.5,
-        hotel_equipement: [
-            "wifi gratuit",
-            "Sauna", "Parking gratuit"
+        idh: 11022,
+        nomh: "Hotel Cristal 2 ",
+        desch: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
+        note: 5,
+        equipementh: [
+
         ],
         hotel_fav: true,
-        hotel_img: process.env.PUBLIC_URL + "/assets/hotel3.jpg"
+        imgh: process.env.PUBLIC_URL + "/assets/hotel3.jpg"
 
     }, {
-        hotel_id: Math.ceil(Math.random() * 7),
-        hotel_name: "Hotel Cristal 2 ",
-        hotel_desc: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
-        hotel_eval: 4.5,
-        hotel_equipement: [
-            "wifi gratuit",
-            "Sauna", "Parking gratuit"
+        idh: 14613,
+        nomh: "Hotel Cristal 2 ",
+        desch: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
+        note: 4,
+        equipementh: [
+
+            "Sauna",
         ],
         hotel_fav: true,
-        hotel_img: process.env.PUBLIC_URL + "/assets/hotel3.jpg"
+        imgh: process.env.PUBLIC_URL + "/assets/hotel3.jpg"
 
     }, {
-        hotel_id: Math.ceil(Math.random() * 7),
-        hotel_name: "Hotel Cristal 2 ",
-        hotel_desc: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
-        hotel_eval: 4.5,
-        hotel_equipement: [
+        idh: 1857,
+        nomh: "Hotel Cristal 2 ",
+        desch: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
+        note: 4,
+        equipementh: [
             "wifi gratuit",
-            "Sauna", "Parking gratuit"
+            "Parking gratuit"
         ],
         hotel_fav: true,
-        hotel_img: process.env.PUBLIC_URL + "/assets/hotel3.jpg"
+        imgh: process.env.PUBLIC_URL + "/assets/hotel3.jpg"
 
     }, {
-        hotel_id: Math.ceil(Math.random() * 7),
-        hotel_name: "Hotel Cristal 2 ",
-        hotel_desc: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
-        hotel_eval: 4.5,
-        hotel_equipement: [
-            "wifi gratuit",
-            "Sauna", "Parking gratuit"
+        idh: 17414,
+        nomh: "Hotel Cristal 2 ",
+        desch: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
+        note: 1,
+        equipementh: [
+            "",
         ],
         hotel_fav: true,
-        hotel_img: process.env.PUBLIC_URL + "/assets/hotel3.jpg"
+        imgh: process.env.PUBLIC_URL + "/assets/hotel3.jpg"
 
     }, {
-        hotel_id: Math.ceil(Math.random() * 7),
-        hotel_name: "Hotel Cristal 2 ",
-        hotel_desc: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
-        hotel_eval: 4.5,
-        hotel_equipement: [
+        idh: 1256,
+        nomh: "Hotel Cristal 2 ",
+        desch: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
+        note: 2,
+        equipementh: [
             "wifi gratuit",
-            "Sauna", "Parking gratuit"
+            "Sauna"
         ],
         hotel_fav: true,
-        hotel_img: process.env.PUBLIC_URL + "/assets/hotel3.jpg"
+        imgh: process.env.PUBLIC_URL + "/assets/hotel3.jpg"
 
     }, {
-        hotel_id: Math.ceil(Math.random() * 7),
-        hotel_name: "Hotel Cristal 2 ",
-        hotel_desc: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
-        hotel_eval: 4.5,
-        hotel_equipement: [
+        idh: 17708,
+        nomh: "Hotel Cristal 2 ",
+        desch: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
+        note: 3,
+        equipementh: [
             "wifi gratuit",
-            "Sauna", "Parking gratuit"
+            "Sauna"
         ],
         hotel_fav: true,
-        hotel_img: process.env.PUBLIC_URL + "/assets/hotel3.jpg"
+        imgh: process.env.PUBLIC_URL + "/assets/hotel3.jpg"
 
     }, {
-        hotel_id: Math.ceil(Math.random() * 7),
-        hotel_name: "Hotel Cristal 2 ",
-        hotel_desc: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
-        hotel_eval: 4.5,
-        hotel_equipement: [
+        idh: 16639,
+        nomh: "Hotel Cristal 2 ",
+        desch: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
+        note: 5,
+        equipementh: [
             "wifi gratuit",
-            "Sauna", "Parking gratuit"
+            "Sauna"
         ],
         hotel_fav: true,
-        hotel_img: process.env.PUBLIC_URL + "/assets/hotel3.jpg"
+        imgh: process.env.PUBLIC_URL + "/assets/hotel3.jpg"
 
     }, {
-        hotel_id: Math.ceil(Math.random() * 7),
-        hotel_name: "Hotel Cristal 2 ",
-        hotel_desc: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
-        hotel_eval: 4.5,
-        hotel_equipement: [
-            "wifi gratuit",
+        idh: 1012014,
+        nomh: "Hotel Cristal 2 ",
+        desch: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
+        note: 4,
+        equipementh: [
+
             "Sauna", "Parking gratuit"
         ],
         hotel_fav: true,
-        hotel_img: process.env.PUBLIC_URL + "/assets/hotel3.jpg"
+        imgh: process.env.PUBLIC_URL + "/assets/hotel3.jpg"
 
     }, {
-        hotel_id: Math.ceil(Math.random() * 7),
-        hotel_name: "Hotel Cristal 2 ",
-        hotel_desc: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
-        hotel_eval: 4.5,
-        hotel_equipement: [
+        idh: 14152,
+        nomh: "Hotel Cristal 2 ",
+        desch: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
+        note: 1,
+        equipementh: [
             "wifi gratuit",
-            "Sauna", "Parking gratuit"
+            "Parking gratuit"
         ],
         hotel_fav: true,
-        hotel_img: process.env.PUBLIC_URL + "/assets/hotel3.jpg"
+        imgh: process.env.PUBLIC_URL + "/assets/hotel3.jpg"
 
     }, {
-        hotel_id: Math.ceil(Math.random() * 7),
-        hotel_name: "Hotel Cristal 2 ",
-        hotel_desc: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
-        hotel_eval: 4.5,
-        hotel_equipement: [
-            "wifi gratuit",
-            "Sauna", "Parking gratuit"
+        idh: 165380,
+        nomh: "Hotel Cristal 2 ",
+        desch: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum est labore nesciunt magnam similique possimus.`,
+        note: 5,
+        equipementh: [
+            "Restaurant",
+
         ],
         hotel_fav: true,
-        hotel_img: process.env.PUBLIC_URL + "/assets/hotel3.jpg"
+        imgh: process.env.PUBLIC_URL + "/assets/hotel3.jpg"
 
     }
 ];

@@ -1,4 +1,3 @@
-import './App.css';
 import Home from "./pages/home";
 import Error404 from './components/Error404';
 import AboutUs from './pages/aboutUs';
@@ -7,21 +6,51 @@ import { Route, Routes } from "react-router-dom";
 import ContactUs from "./pages/ContactUs";
 import RegisterForm from "./pages/LoginRegister";
 import HotelAndAgences from "./pages/hotelsAndagences";
+import AppHotel from "./manager/hotel/appHotel";
+import AppAgence from "./manager/agence/appAgence";
+import Profile from "./pages/Profile";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Checkout from "./pages/Checkout"
+import HotelPage from "./pages/hotelPage"
+const theme = createTheme({
+  typography: {
+    fontFamily: "Poppins",
+  },
+  palette: {
+    primary: {
+      main: "#3a78c9",
+      dark: "#263a49",
+    },
+    secondary: {
+      main: "#1ea896",
+      contrastText: "#757575",
+    },
+  },
+});
 
 function App() {
-  return (<>
+  return (
+    <ThemeProvider theme={theme}>
+      <>
 
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path='/hotels' element={<HotelAndAgences />} />
-      <Route path='/propos' element={<AboutUs />} />
-      <Route path='/voyages' element={<HotelAndAgences />} />
-      <Route path='/contact' element={<ContactUs />} />
-      <Route path='/login' element={<RegisterForm />} />
-      <Route path="*" element={<Error404 />} />
-    </Routes>
-    <ArrowUp targetId={"navbarId"} />
-  </>
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path='/hotels' element={<HotelAndAgences />} />
+          <Route path='/propos' element={<AboutUs />} />
+          <Route path='/voyages' element={<HotelAndAgences />} />
+          <Route path='/contact' element={<ContactUs />} />
+          <Route path='/login' element={<RegisterForm />} />
+          <Route path='/profil/:id' element={<Profile />} />
+          <Route path="/manager/hotel/*" element={<AppHotel />} />
+          <Route path="/hotels/:id" element={<HotelPage />} />
+          <Route path="/paiement" element={<Checkout />} />
+
+          <Route path="*" element={<Error404 />} />
+        </Routes>
+        <ArrowUp targetId={"navbarId"} />
+      </>
+    </ThemeProvider>
   );
 }
 

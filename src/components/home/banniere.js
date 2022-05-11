@@ -70,7 +70,8 @@ const Banniere = () => {
                             sx={{
                                 backgroundColor: "white",
                                 borderRadius: '15px',
-                                marginTop: "20px"
+                                marginTop: "20px",
+                                outline: "none !important",
                             }}></TextField>
 
                         {/* MuiOutlinedInput-root MuiInputBase-root

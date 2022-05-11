@@ -29,7 +29,7 @@ const CardVoyage = ({ destination, agence, tarif, img, actions = false }) => {
                         à {tarif} DZD par adulte
                     </Typography>
 
-                    {actions &&
+                    {!actions &&
                         <>
                             <Typography variant="body2" color="text.secondary">
                                 {agence}

@@ -7,7 +7,8 @@ import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import "../components/styles/home.css";
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger);
+
 
 const Home = () => {
     const homeRef = useRef(null);

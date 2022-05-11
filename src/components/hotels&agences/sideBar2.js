@@ -5,6 +5,10 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import WineBarIcon from '@mui/icons-material/WineBar';
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { filtrerNote, filtrerEquipement } from "../../redux/hotelSlice";
 
 // const buttonStyle = (theme) => ({
 //     display: 'flex', justifyContent: "space-evenly",
@@ -20,6 +24,32 @@ const buttonStyle = (theme) => ({
     textTransform: "none", margin: "10px 0px", position: "relative", width: "220px"
 })
 const SideBar2 = () => {
+    const [rating, setRating] = useState(0);
+    const navigate = useNavigate();
+    const { pathname } = useLocation();
+    const disptach = useDispatch();
+    const [equiState, setEquiState] = useState([]);
+
+
+    const handelRadioEq = (e) => {
+
+
+
+
+        if (e.target.checked) {
+            setEquiState([...equiState, e.target.value]);
+        } else {
+            let t = equiState.filter(val => val !== e.target.value);
+            setEquiState(t);
+        }
+    };
+
+
+    useEffect(() => {
+        disptach(filtrerNote(rating));
+        disptach(filtrerEquipement(equiState));
+        // console.log(equiState);
+    }, [equiState])
 
     return (
         <Box sx={{ background: "" }}>
@@ -30,63 +60,70 @@ const SideBar2 = () => {
                 </Typography>
 
 
-                <Button variant="outlined" size="large" sx={buttonStyle}>
+                <Button variant="outlined" size="large" sx={buttonStyle}
+                    onClick={() => { navigate('/hotels') }}
+                >
                     <WineBarIcon sx={{ position: "absolute", left: "15px" }} />
                     <p> Hotel</p>
                 </Button>
-                <Button variant="outlined" size="large" sx={buttonStyle}>
+                <Button variant="outlined" size="large" sx={buttonStyle}
+                    onClick={() => { navigate('/voyages') }}
+
+                >
                     <WineBarIcon sx={{ position: "absolute", left: "15px" }} />
                     <p> Voyages Organisés </p>
                 </Button>
             </Stack>
             {/**LES FILTRAGES NORMALEMENT TU CONNAIS HEIN  */}
-            <Stack alignItems={"center"} sx={{ maxWidth: "450px", margin: "0px auto" }}>
+            {pathname === '/hotels' ? <>
+                <Stack alignItems={"center"} sx={{ maxWidth: "450px", margin: "0px auto" }}>
 
-                <Typography component={"h2"} variant="h6"
-                    sx={{ width: "90%", fontWeight: 540, marginTop: "10px ", border: "1px solid rgba(0,0,0,.5)", padding: "5px 0px" }}>
-                    Filtrer les
-                    recherches par:
-                </Typography>
-
-                {/**BOX NUMERO 1  */}
-                <Box sx={{ width: "90%", padding: "10px", border: "1px solid rgba(0,0,0,.5)", borderTop: "none" }}>
-                    <Typography component={"p"} variant="h6" >
-                        étoiles :
+                    <Typography component={"h2"} variant="h6"
+                        sx={{ width: "90%", fontWeight: 540, marginTop: "10px ", border: "1px solid rgba(0,0,0,.5)", padding: "5px 0px" }}>
+                        Filtrer les
+                        recherches par:
                     </Typography>
 
-                    <Rating
+                    {/**BOX NUMERO 1  */}
+                    <Box sx={{ width: "90%", padding: "10px", border: "1px solid rgba(0,0,0,.5)", borderTop: "none" }}>
+                        <Typography component={"p"} variant="h6" >
+                            étoiles :
+                        </Typography>
 
-                        name="simple-controlled"
-                        // value={value}
-                        size="large"
-                    // onChange={(event, newValue) => {
-                    //     setValue(newValue);
-                    // }}
-                    />
-                </Box>
+                        <Rating
 
-                {/**BOX NUMERO 1  */}
+                            name="simple-controlled"
+                            value={rating}
+                            size="large"
+                            onChange={(event, newValue) => {
+                                setRating(newValue);
+                                disptach(filtrerNote(newValue));
+                            }}
+                        />
+                    </Box>
 
-                <Box sx={{ width: "90%", padding: "10px", border: "1px solid rgba(0,0,0,.5)", borderTop: "none" }}>
-                    <Typography component={"p"} variant="h6" >
-                        equipement :
-                    </Typography>
-                    <FormControl >
-                        <RadioGroup
-                            defaultChecked={1}
-                        >
-                            <FormControlLabel value={1} control={<Checkbox />} label="Wifi gratuit" />
-                            <FormControlLabel value={2} control={<Checkbox />} label="Sauna" />
-                            <FormControlLabel value={3} control={<Checkbox />} label="Plage" />
-                            <FormControlLabel value={4} control={<Checkbox />} label="Restaurant" />
-                            <FormControlLabel value={5} control={<Checkbox />} label="Parking gratuit" />
-                        </RadioGroup>
-                    </FormControl>
+                    {/**BOX NUMERO 1  */}
+
+                    <Box sx={{ width: "90%", padding: "10px", border: "1px solid rgba(0,0,0,.5)", borderTop: "none" }}>
+                        <Typography component={"p"} variant="h6" >
+                            equipement :
+                        </Typography>
+                        <FormControl >
+                            <RadioGroup defaultChecked={"Wifi gratuit"}>
+                                <FormControlLabel value={"wifi gratuit"} control={<Checkbox />} onChange={handelRadioEq} label="Wifi gratuit" />
+                                <FormControlLabel value={"Sauna"} control={<Checkbox />} onChange={handelRadioEq} label="Sauna" />
+                                <FormControlLabel value={"Plage"} control={<Checkbox />} onChange={handelRadioEq} label="Plage" />
+                                <FormControlLabel value={"Restaurant"} control={<Checkbox />} onChange={handelRadioEq} label="Restaurant" />
+                                <FormControlLabel value={"Parking gratuit"} control={<Checkbox />} onChange={handelRadioEq} label="Parking gratuit" />
+                            </RadioGroup>
+                        </FormControl>
 
 
-                </Box>
+                    </Box>
 
-            </Stack>
+                </Stack>
+
+            </> : null}
 
 
 

@@ -1,7 +1,7 @@
 import { Grid, Pagination } from "@mui/material";
 import { voyagesFake } from "./dataFake";
 import CardVoyage from "../cardVoyage";
-import { Typography, Container } from "@mui/material";
+import { Typography, Container, Stack } from "@mui/material";
 import usePagination from "../pagination";
 import { useState } from "react";
 
@@ -18,15 +18,8 @@ const SectionVoyages = () => {
 
 
     return (
-        <Container id="section-voyage">
-            <Typography component={"h2"} variant="h3" marginTop={5} sx={theme => ({
-                [theme.breakpoints.down('sm')]: {
-                    fontSize: '30px'
-                }
-            })} >
-                Meilleures Voyages vers votre meilleures Destinations
-            </Typography>
-            <Grid container rowSpacing={5} columnSpacing={3} marginY={5}>
+        <Stack id="section-voyage">
+            <Grid container rowSpacing={5} columnSpacing={3} >
 
                 {_DATA.currentData().map((voyage) => {
                     return (
@@ -52,7 +45,7 @@ const SectionVoyages = () => {
                         color="primary" />
                 </Grid>
             </Grid>
-        </Container>
+        </Stack>
     )
 };
 

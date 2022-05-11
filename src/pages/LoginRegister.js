@@ -1,29 +1,29 @@
-import { React, useState } from "react";
+import { React, useEffect, useState, useLayoutEffect } from "react";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
+import Alert from "@mui/material/Alert";
+import { Snackbar } from "@mui/material";
 import "../components/styles/RegisterLogin.css";
 import RegisterForm from "../components/RegisterLogin/RegisterForm";
 import LoginForm from "../components/RegisterLogin/LoginForm";
 import NavBar from "../components/navbar";
 import Footer from "../components/footer";
 import BanniereT2 from "../components/banniereType2";
-import { loginClient, signupClient } from "../redux/clientSlice";
-import { useDispatch } from "react-redux";
+import { loginClient, signupClient, clientSlice } from "../redux/clientSlice";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+
 const theme = createTheme();
 
 const LoginRegister = () => {
@@ -32,12 +32,24 @@ const LoginRegister = () => {
   const [errInRegisterForm, seterrInRegisterForm] = useState(false);
   const [errInLoginForm, setErrInLoginForm] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const clientData = useSelector((state) => state.client);
+  const [showAlert, setShowAlert] = useState(false);
+
+  useEffect(() => {
+    if (Cookies.get('jwt')) {
+      navigate('/');
+    };
+    console.log("effedt de dispatch")
+  }, [])
+
+
   const [registerInfo, setRegisterInfo] = useState({
-    nom: "",
-    prenom: "",
-    email: "",
-    numTel: "",
-    mdp: "",
+    nom: "badis",
+    prenom: "df",
+    email: "badis1@gmail.com",
+    numTel: "0542253312",
+    mdp: "badis1",
   });
 
   const [registerError, setRegisterError] = useState({
@@ -58,15 +70,20 @@ const LoginRegister = () => {
     const name = event.target.name;
     const value = event.target.value;
     setLoginInfo({ ...loginInfo, [name]: value });
-    console.log(value);
+    // console.log(value);
   };
 
   //Envie du formulaire de connexion
   const handleSubmitLogin = (event) => {
     event.preventDefault();
-    // dispatch(loginClient(loginInfo));
-    console.log("eren yeager login");
-
+    dispatch(loginClient(loginInfo)).then((res) => {
+      if (typeof res.payload.error !== "undefined")
+        setShowAlert(true);
+      else {
+        setShowAlert(false);
+        navigate('/');
+      }
+    })
   };
 
   //mise à jour des champs à chaque changement
@@ -81,14 +98,13 @@ const LoginRegister = () => {
   //afficher or masqu le mot de passe
   const handleChangeSwitch = (event) => {
     setShowMDP(event.target.checked);
-    console.log(showMDP);
+    // console.log(showMDP);
   };
 
   // envoie du formulaire
   const handleSubmitRegister = (event) => {
     event.preventDefault();
 
-    console.log("eren yeager register");
 
     setRegisterError({ nom: "", prenom: "", numTel: "", email: "" });
 
@@ -133,15 +149,20 @@ const LoginRegister = () => {
 
     //UGH MOST OF THESE HAVE TO MOVE OUT TO THE PARENT COMPONENT
     if (!errInRegisterForm) {
-      dispatch(signupClient(registerInfo));
+      dispatch(signupClient(registerInfo)).then((res) => {
+        if (typeof res.payload.error !== "undefined")
+          setShowAlert(true);
+        else {
+          setShowAlert(false);
+          navigate('/');
+        }
+      })
     }
-
-
-    console.log(registerInfo);
-    console.log(registerError);
   };
 
   const [banniereText, setBanniereText] = useState('Connexion');
+
+
 
   return (
     <>
@@ -254,6 +275,18 @@ const LoginRegister = () => {
         </Grid>
       </Container>
       <Footer />
+
+      {clientData.error !== null &&
+        <Snackbar open={showAlert}
+
+          anchorOrigin={{ vertical: 'bottom', horizontal: "left" }}
+          autoHideDuration={3000}
+          onClose={() => { console.log("fuck") }} >
+          <Alert onClose={() => { setShowAlert(false) }} severity="error" sx={{ width: "300px", background: "red", color: "black" }} >
+            {clientData.error}
+          </Alert>
+        </Snackbar>
+      }
     </>
   );
 };

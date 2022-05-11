@@ -23,7 +23,7 @@ const ArrowUp = ({ targetId }) => {
                 }
 
             })}>
-                <a href={`#${targetId}`} style={{}}> <ArrowUpwardIcon sx={{ color: "black", fontSize: "30px" }} /> </a>
+                <a href={`#${targetId}`} style={{}}> <ArrowUpwardIcon sx={{ transform: "translateY(2px)", color: "black", fontSize: "30px" }} /> </a>
             </IconButton>
         </>
     )
