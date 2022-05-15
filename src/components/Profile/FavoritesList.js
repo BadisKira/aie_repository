@@ -21,6 +21,8 @@ import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 function createData(hotel, adresse, ville) {
   return {
@@ -30,17 +32,17 @@ function createData(hotel, adresse, ville) {
   };
 }
 
-const rows = [
-  createData("Hotel cristal 1", "Armriw sidi ahmed", "Bejaia"),
-  createData("Hotel cristal 2", "BArmriw sidi ahmed", "Bejaia"),
-  createData("Aotel cristal 3", "Zrmriw sidi ahmed", "Bejaia"),
-  createData("Hotel cristal 14", "Armriw sidi ahmed", "Bejaia"),
-  createData("Hotel cristal 10", "Armriw sidi ahmed", "Bejaia"),
-  createData("motel cristal 145", "Armriw sidi ahmed", "Bejaia"),
-  createData("aotel cristal 174", "Armriw sidi ahmed", "Bejaia"),
-  createData("Hotel cristal 001", "Armriw sidi ahmed", "Bejaia"),
-  createData("Hotel cristal 169", "Armriw sidi ahmed", "Bejaia"),
-];
+// const rows = [
+//   createData("Hotel cristal 1", "Armriw sidi ahmed", "Bejaia"),
+//   createData("Hotel cristal 2", "BArmriw sidi ahmed", "Bejaia"),
+//   createData("Aotel cristal 3", "Zrmriw sidi ahmed", "Bejaia"),
+//   createData("Hotel cristal 14", "Armriw sidi ahmed", "Bejaia"),
+//   createData("Hotel cristal 10", "Armriw sidi ahmed", "Bejaia"),
+//   createData("motel cristal 145", "Armriw sidi ahmed", "Bejaia"),
+//   createData("aotel cristal 174", "Armriw sidi ahmed", "Bejaia"),
+//   createData("Hotel cristal 001", "Armriw sidi ahmed", "Bejaia"),
+//   createData("Hotel cristal 169", "Armriw sidi ahmed", "Bejaia"),
+// ];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -144,7 +146,7 @@ function EnhancedTableHead(props) {
 }
 
 const EnhancedTableToolbar = (props) => {
-  const { numSelected } = props;
+  const { numSelected, rows } = props;
 
   return (
     <Toolbar
@@ -200,6 +202,26 @@ export default function EnhancedTable() {
   const [orderBy, setOrderBy] = useState("hotel");
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
+  const clientData = useSelector(state => state.client);
+  const [favsInfo, setFavsInfo] = useState([]);
+  const [rows, setRows] = useState([]);
+
+  useEffect(() => {
+    console.log("CLEINT DATA FAVORITE ===> ", clientData.favs.favoris);
+    setFavsInfo(clientData.favs.favoris);
+  }, [clientData]);
+
+  useEffect(() => {
+    console.log("fav de merde ", favsInfo);
+    let temp = [];
+    temp = favsInfo.map((fav) => {
+      return createData(fav.nomh, fav.adresseh, fav.villeh);
+    });
+    setRows(temp);
+    console.log("FAVS ROWS", rows);
+  }, [favsInfo]);
+
+
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -248,7 +270,7 @@ export default function EnhancedTable() {
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar numSelected={selected.length} rows={rows} />
         <TableContainer>
           <Table size="medium">
             <EnhancedTableHead

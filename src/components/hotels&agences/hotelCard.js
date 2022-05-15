@@ -12,6 +12,14 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useState } from "react";
 import { useMediaQuery } from "@mui/material";
 import { useTheme } from '@mui/material/styles';
+import Cookies from "js-cookie";
+import { useNavigate } from 'react-router-dom';
+
+import {
+    addFav, deleteFav
+} from "../../redux/clientSlice";
+
+import { useDispatch, useSelector } from "react-redux";
 
 
 
@@ -34,12 +42,14 @@ const favHeartStyle = {
 
 }
 
-const HotelCard = ({ title, img, desc, evaluation = 2, equipement = ["Wifi gratuit", "Sauna", 'Parking gratuit'], fav }) => {
+const HotelCard = ({ idh, title, img, desc, evaluation = 2, equipement = ["Wifi gratuit", "Sauna", 'Parking gratuit'], fav }) => {
     const [favH, setFavH] = useState(fav);
     const theme = useTheme();;
     const media = useMediaQuery(theme.breakpoints.down('md'));
     const mediaBreaker = "md";
-
+    const navigate = useNavigate();
+    const clientData = useSelector(state => state.client);
+    const disptach = useDispatch();;
     return (
         < >
 
@@ -143,8 +153,8 @@ const HotelCard = ({ title, img, desc, evaluation = 2, equipement = ["Wifi gratu
                                     }}
                                 >
                                     {equipement.map((equipement, index) => (
-                                        <li key={equipement + index} style={{ fontFamily: "sans-serif", fontSize: '13px' }}>
-                                            {equipement}
+                                        <li key={equipement.nom_eq + index} style={{ fontFamily: "sans-serif", fontSize: '13px' }}>
+                                            {equipement.nom_eq}
                                         </li>
                                     )
                                     )}
@@ -160,21 +170,33 @@ const HotelCard = ({ title, img, desc, evaluation = 2, equipement = ["Wifi gratu
                                 />
                             </Stack>
 
-                            <Button color="primary" variant="contained" sx={{ textTransform: "none" }}>
+                            <Button color="primary" variant="contained" sx={{ textTransform: "none" }}
+                                onClick={() => { navigate(`/hotel/${idh}`) }}
+                            >
                                 Voir Tarifs
                             </Button>
                         </Box>
                     </CardContent>
                 </Box>
+                {Cookies.get('jwt') &&
+                    <>  {
+                        favH === true ?
+                            <FavoriteIcon fontSize="medium" onClick={() => {
+                                disptach(deleteFav({ idh: idh, jwt: Cookies.get('jwt'), emailBase: Cookies.get('email') }));
+                                setFavH((prevState) => ({ favH: false }));
+                            }}
+                                sx={favHeartStyle} />
+                            :
+                            <FavoriteBorderIcon
+                                fontSize="medium" onClick={() => {
+                                    disptach(addFav({ idh: idh, jwt: Cookies.get('jwt'), emailBase: Cookies.get('email') }));
+                                    setFavH(true)
+                                }}
+                                sx={favHeartStyle}
 
-                {
-                    favH === true ?
-                        <FavoriteIcon fontSize="medium" onClick={() => { setFavH((prevState) => ({ favH: false })) }}
-                            sx={favHeartStyle} />
-                        :
-                        <FavoriteBorderIcon
-                            fontSize="medium" onClick={() => { setFavH(true) }}
-                            sx={favHeartStyle} />
+                            />
+                    }
+                    </>
                 }
 
             </Card >

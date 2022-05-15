@@ -5,13 +5,17 @@ import HotelCard from './hotelCard';
 import { hotelFakeData } from "./dataFake";
 import { useState } from "react";
 import usePagination from "../pagination";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllHotelsVilleNote, getAllHotelsNote, getAllHotelsVille, getAllHotels, filtrerNote, filtrerEquipement } from "../../redux/hotelSlice";
 
 
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const LayoutHotelAgence = ({ children, PaginationComp, miniTitle, tries }) => {
 
-    const { pathname } = useLocation();
+    const { typeR, ville } = useParams();
+    const hotelData = useSelector(state => state.hotel);
+    const dispatch = useDispatch();
 
 
     return (<>
@@ -33,7 +37,9 @@ const LayoutHotelAgence = ({ children, PaginationComp, miniTitle, tries }) => {
 
                 <Box>
                     <Stack marginBottom={3} paddingLeft={3}>
-                        <Typography color="primary" component='h2' variant="h3">Marakkech</Typography>
+                        <Typography color="primary" component='h2' variant="h3">
+                            {ville}
+                        </Typography>
                         <Box sx={(theme) => ({
                             display: "flex",
                             flexDirection: "row",
@@ -47,7 +53,9 @@ const LayoutHotelAgence = ({ children, PaginationComp, miniTitle, tries }) => {
 
 
                             <Typography component='h3' variant="h5">
-                                10 {pathname === '/hotel' ? "Hotels" : "Voyages"} trouvés
+
+                                {typeR === 'hotels' ? ` ${hotelData.hotels.length} Hotels ` : " 7 Voyages "}
+                                trouvés
                             </Typography>
 
 
@@ -60,10 +68,29 @@ const LayoutHotelAgence = ({ children, PaginationComp, miniTitle, tries }) => {
                                     size="small"
 
                                 >
-                                    <MenuItem value={"prix"}>Ordre A-z</MenuItem>
-                                    {pathname === '/hotels' ?
+                                    <MenuItem value={"ordre a-z"}
+                                        onClick={() => {
 
-                                        <MenuItem value={"Note"}>Note</MenuItem>
+                                            if (typeof ville == "undefined") {
+                                                dispatch(getAllHotels());
+                                            } else {
+                                                dispatch(getAllHotelsVille(ville));
+                                            }
+                                            // dispatch(filtrerEquipement());
+                                            // dispatch(filtrerNote());
+                                        }}
+                                    >Ordre A-z</MenuItem>
+                                    {typeR === 'hotels' ?
+
+                                        <MenuItem value={"Note"}
+                                            onClick={() => {
+                                                if (typeof ville == "undefined") {
+                                                    dispatch(getAllHotelsNote());
+                                                } else {
+                                                    dispatch(getAllHotelsVilleNote(ville));
+                                                }
+                                            }}
+                                        >Note</MenuItem>
 
                                         :
                                         <MenuItem value={"chance"}>Prix</MenuItem>

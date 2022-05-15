@@ -23,6 +23,6 @@ export const routesH = [
     }, {
         title: "Sign out",
         icon: <LogoutIcon sx={{ color: "white", margin: "0px 15px" }} fontSize="medium" />,
-        location: "/manager/hotel/sign-up"
+        location: "/manager/hotel/sign-out"
     }
 ]

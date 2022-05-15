@@ -12,6 +12,9 @@ import Profile from "./pages/Profile";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Checkout from "./pages/Checkout"
 import HotelPage from "./pages/hotelPage"
+import TripsPage from "./pages/tripsPage";
+import AppAdmin from "./manager/admin/appAdmin";
+
 const theme = createTheme({
   typography: {
     fontFamily: "Poppins",
@@ -36,17 +39,20 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path='/hotels' element={<HotelAndAgences />} />
+          <Route path="/404" element={<Error404 />} />
+          <Route path='/:typeR/:ville' element={<HotelAndAgences />} />
+          <Route path='/:typeR' element={<HotelAndAgences />} />
           <Route path='/propos' element={<AboutUs />} />
-          <Route path='/voyages' element={<HotelAndAgences />} />
           <Route path='/contact' element={<ContactUs />} />
           <Route path='/login' element={<RegisterForm />} />
           <Route path='/profil/:id' element={<Profile />} />
-          <Route path="/manager/hotel/*" element={<AppHotel />} />
-          <Route path="/hotels/:id" element={<HotelPage />} />
+          <Route path="/hotel/:idh" element={<HotelPage />} />
+          <Route path='/voyage/:idv' element={<TripsPage />} />
           <Route path="/paiement" element={<Checkout />} />
+          <Route path="/administrateur-site/*" element={<AppAdmin />} />
+          <Route path="/manager/hotel/*" element={<AppHotel />} />
+          <Route path="/manager/agence/*" element={<AppAgence />} />
 
-          <Route path="*" element={<Error404 />} />
         </Routes>
         <ArrowUp targetId={"navbarId"} />
       </>

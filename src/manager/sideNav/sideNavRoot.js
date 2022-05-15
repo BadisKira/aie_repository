@@ -1,5 +1,5 @@
 import { Box, Typography, Stack, Divider, IconButton, AppBar } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import ClearIcon from '@mui/icons-material/Clear';
 import {
@@ -12,6 +12,7 @@ import { AltRoute } from "@mui/icons-material";
 
 
 const SideNavRoot = ({ routes }) => {
+    const route = useLocation().pathname.split("/").slice(1);
     const [controller, dispatch] = useMaterialUIController();
     const { miniSidenav, translateMiniSideNav } = controller;
     const GetRoutes = () => {
@@ -24,7 +25,7 @@ const SideNavRoot = ({ routes }) => {
             {
                 routes.map(({ title, icon, location }, index) => {
                     return (
-                        <Link to={location} key={index}>
+                        <Link to={location} key={index} >
                             <Box sx={{
                                 display: "flex",
                                 width: "100%",
@@ -75,7 +76,10 @@ const SideNavRoot = ({ routes }) => {
                 }}>
 
                     <Typography component="h2" variant='subtitle1' fontWeight={600} sx={{ color: "white" }}>
-                        HOTEL'S name my friend
+                        {route.includes('administrateur-site')
+                            ? "Administrateur"
+                            : " HOTEL'S name  "
+                        }
                     </Typography>
                     <Divider variant="middle" sx={{ backgroundColor: "rgba(255,255,255,0.4)", transform: "translateY(20px)" }} />
 

@@ -10,6 +10,8 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
 const columns = [
   { label: "Nom hotel", id: "hotel" },
   { label: "date d'arrivée", id: "DateArrivee" },
@@ -36,56 +38,77 @@ function createData(hotel, DateArrivee, dateSortie, nbrChambres, total) {
   return { hotel, DateArrivee, dateSortie, nbrChambres, total };
 }
 
-const rows = [
-  createData(
-    "India's curry hotel",
-    "29-01-2021",
-    "01-02-2022",
-    "2",
-    "20000.00 DZD"
-  ),
-  createData(
-    "India's curry hotel",
-    "29-01-2021",
-    "01-02-2022",
-    "2",
-    "20000.00 DZD"
-  ),
-  createData(
-    "India's curry hotel",
-    "29-01-2021",
-    "01-02-2022",
-    "2",
-    "20000.00 DZD"
-  ),
+// let rows = [];
+// // let rows = [
+// //   createData(
+// //     "India's curry hotel",
+// //     "29-01-2021",
+// //     "01-02-2022",
+// //     "2",
+// //     "20000.00 DZD"
+// //   ),
+// //   createData(
+// //     "India's curry hotel",
+// //     "29-01-2021",
+// //     "01-02-2022",
+// //     "2",
+// //     "20000.00 DZD"
+// //   ),
+// //   createData(
+// //     "India's curry hotel",
+// //     "29-01-2021",
+// //     "01-02-2022",
+// //     "2",
+// //     "20000.00 DZD"
+// //   ),
 
-  createData(
-    "India's curry hotel",
-    "29-01-2021",
-    "01-02-2022",
-    "2",
-    "20000.00 DZD"
-  ),
+// //   createData(
+// //     "India's curry hotel",
+// //     "29-01-2021",
+// //     "01-02-2022",
+// //     "2",
+// //     "20000.00 DZD"
+// //   ),
 
-  createData(
-    "India's curry hotel",
-    "29-01-2021",
-    "01-02-2022",
-    "2",
-    "20000.00 DZD"
-  ),
+// //   createData(
+// //     "India's curry hotel",
+// //     "29-01-2021",
+// //     "01-02-2022",
+// //     "2",
+// //     "20000.00 DZD"
+// // ),
 
-  createData(
-    "India's curry hotel",
-    "29-01-2021",
-    "01-02-2022",
-    "2",
-    "20000.00 DZD"
-  ),
-];
+// // createData(
+// //   "India's curry hotel",
+// //   "29-01-2021",
+// //   "01-02-2022",
+// //   "2",
+// //   "20000.00 DZD"
+// // ),
+// // ];
 
 function ReservationsList() {
   const [page, setPage] = React.useState(0);
+  const clientData = useSelector(state => state.client);
+  const [reservationsInfo, setReservationsInfo] = useState(clientData.reservations);
+  const [rows, setRows] = useState([]);
+
+  useEffect(() => {
+    setReservationsInfo(clientData.reservations);
+  }, [clientData]);
+
+  useEffect(() => {
+    const { reservations, message } = reservationsInfo;
+    //  function createData(hotel, DateArrivee, dateSortie, nbrChambres, total) {
+    let temp = [];
+    temp = reservations.map((reservation) => {
+      return createData(reservation.nomh, reservation.datedep, reservation.datefin, reservation.nombrechambre, reservation.prixReservation)
+
+    });
+
+    setRows(temp);
+    console.log("ROW ===>", rows)
+  }, [reservationsInfo])
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

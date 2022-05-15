@@ -19,7 +19,6 @@ const CardsContainer = () => {
     useEffect(() => {
         const cards = containerRef.current.querySelectorAll('.card');
         const titlecards = containerRef.current.querySelector('h1');
-        console.log(titlecards);;
 
         gsap.fromTo(cards, { y: -80, opacity: 0, delay: 0.5 }, {
             y: 0, opacity: 1, duration: 1, stagger: .5,

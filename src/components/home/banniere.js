@@ -5,18 +5,21 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { gsap } from "gsap";
 import { CSSRulePlugin } from 'gsap/all';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+import { useDispatch } from "react-redux";
+import { getAllHotelsVille } from '../../redux/hotelSlice';
+
+import { useNavigate } from "react-router-dom";
+
 gsap.registerPlugin(CSSRulePlugin);
 
 const Banniere = () => {
-    const textReveal = CSSRulePlugin.getRule(".central-text::after");
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [ville, setVille] = useState('');
 
-    useEffect(() => {
-        gsap.to(textReveal, {
-            duration: "1s",
-            height: "0px"
-        })
-    }, [])
+
     return (
         <div className="banniere-container">
             <Container >
@@ -38,6 +41,8 @@ const Banniere = () => {
                         <TextField fullWidth
                             placeholder="Choisir une destination"
                             id="fullWidth"
+                            value={ville}
+                            onChange={(e) => { setVille(e.target.value) }}
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">
@@ -46,20 +51,27 @@ const Banniere = () => {
                                 ),
                                 endAdornment: (
                                     <InputAdornment position="end">
-                                        <IconButton sx={{
-                                            backgroundColor: "black",
-                                            color: "white",
-                                            height: '56px',
-                                            width: "50px",
-                                            borderTopRightRadius: "15px",
-                                            borderBottomRightRadius: "15px",
-                                            //borderRadius: "15px",
-                                            fontSize: "20px",
-                                            transform: "translateX(14px)",
-                                            "&:hover": {
-                                                backgroundColor: "black"
-                                            }
-                                        }}>
+                                        <IconButton
+                                            onClick={() => {
+                                                if (ville !== '') {
+                                                    navigate(`hotels/${ville}`);
+                                                    dispatch(getAllHotelsVille(ville));
+                                                }
+                                            }}
+                                            sx={{
+                                                backgroundColor: "black",
+                                                color: "white",
+                                                height: '56px',
+                                                width: "50px",
+                                                borderTopRightRadius: "15px",
+                                                borderBottomRightRadius: "15px",
+                                                //borderRadius: "15px",
+                                                fontSize: "20px",
+                                                transform: "translateX(14px)",
+                                                "&:hover": {
+                                                    backgroundColor: "black"
+                                                }
+                                            }}>
                                             <ArrowForwardIcon sx={{
 
                                             }} />

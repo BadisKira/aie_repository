@@ -53,20 +53,18 @@ const BookingForm = () => {
   const maxFormattedDate = oneMonthFromToday.toISOString().slice(0, 10);
   const [totalPrice, setTotalPrice] = useState(0);
   const [rooms, setRooms] = useState(roomTypes);
-  useEffect(() => {
-    console.log("hey", rooms);
-  }, [rooms]);
+
+
 
   const handleInputChange = (event, room) => {
     let price = 0;
-    console.log(room);
     roomTypes[room.id].qte = Number(event.target.value);
     setRooms(roomTypes);
     roomTypes.forEach((e) => (price += e.qte * e.price));
     setTotalPrice(price);
   };
 
-  const handleSubmitBooking = () => {};
+  const handleSubmitBooking = () => { };
 
   return (
     <Box

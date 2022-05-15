@@ -23,6 +23,7 @@ const SideNav = ({ showSideNav, setShowSideNav, dispatch, navigate }) => {
     const clientData = useSelector(state => state.client);
 
 
+
     return (
         <div className={showSideNav ? "side-nav side-nav-shown" : "side-nav"}>
             <IconButton className="close-btn" onClick={() => { setShowSideNav(false) }}>
@@ -49,14 +50,11 @@ const SideNav = ({ showSideNav, setShowSideNav, dispatch, navigate }) => {
             {Cookies.get('jwt') ?
 
                 <>
-                    <Avatar
-                        onClick={() => {
-                            navigate(`/profil/${clientData.id}`);
-                        }}
-                    >
-                        {clientData?.name[0]} A
-                    </Avatar>
-                    {clientData?.name}
+                    <Button onClick={() => {
+                        navigate(`/profil/${clientData.idclient}`);
+                    }}>
+                        Profile
+                    </Button>
                 </>
                 :
                 <Button className="btn-connexion">
@@ -78,12 +76,6 @@ const NavBar = () => {
     const [showSideNav, setShowSideNav] = useState(false);
     const clientData = useSelector(state => state.client);
     const dispatch = useDispatch();
-
-    console.log("cc ==> ", clientData);
-
-    useEffect(() => {
-
-    }, [])
 
 
     return (
@@ -146,10 +138,10 @@ const NavBar = () => {
                                         <>
                                             <Avatar sx={{ cursor: "pointer" }}
                                                 onClick={() => {
-                                                    navigate(`/profil/${clientData?.id}`);
+                                                    navigate(`/profil/${Cookies.get("idclient")}`);
                                                 }}
                                             >
-                                                {clientData?.name[0]}
+                                                {clientData?.nom[0]}
                                             </Avatar>
                                         </>
                                         :

@@ -6,7 +6,7 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import WineBarIcon from '@mui/icons-material/WineBar';
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { filtrerNote, filtrerEquipement } from "../../redux/hotelSlice";
 
@@ -26,7 +26,7 @@ const buttonStyle = (theme) => ({
 const SideBar2 = () => {
     const [rating, setRating] = useState(0);
     const navigate = useNavigate();
-    const { pathname } = useLocation();
+    const { typeR, ville } = useParams();
     const disptach = useDispatch();
     const [equiState, setEquiState] = useState([]);
 
@@ -47,9 +47,12 @@ const SideBar2 = () => {
 
     useEffect(() => {
         disptach(filtrerNote(rating));
+    }, [equiState]);
+
+    useEffect(() => {
         disptach(filtrerEquipement(equiState));
-        // console.log(equiState);
     }, [equiState])
+
 
     return (
         <Box sx={{ background: "" }}>
@@ -61,13 +64,14 @@ const SideBar2 = () => {
 
 
                 <Button variant="outlined" size="large" sx={buttonStyle}
-                    onClick={() => { navigate('/hotels') }}
+                    onClick={() => { navigate(`/hotels${typeof ville === "undefined" ? "" : '/' + ville}`) }}
                 >
                     <WineBarIcon sx={{ position: "absolute", left: "15px" }} />
                     <p> Hotel</p>
                 </Button>
                 <Button variant="outlined" size="large" sx={buttonStyle}
-                    onClick={() => { navigate('/voyages') }}
+                    // onClick={() => { navigate('/') }}
+                    onClick={() => { navigate(`/voyages${typeof ville === "undefined" ? "" : '/' + ville}`) }}
 
                 >
                     <WineBarIcon sx={{ position: "absolute", left: "15px" }} />
@@ -75,7 +79,7 @@ const SideBar2 = () => {
                 </Button>
             </Stack>
             {/**LES FILTRAGES NORMALEMENT TU CONNAIS HEIN  */}
-            {pathname === '/hotels' ? <>
+            {typeR === 'hotels' ? <>
                 <Stack alignItems={"center"} sx={{ maxWidth: "450px", margin: "0px auto" }}>
 
                     <Typography component={"h2"} variant="h6"

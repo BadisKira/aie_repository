@@ -6,32 +6,24 @@ import Banniere from "../components/home/banniere";
 import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
+import { loginClient } from "../redux/clientSlice";
+import { useDispatch, useSelector } from "react-redux";
+import Cookies from "js-cookie";
 import "../components/styles/home.css";
 gsap.registerPlugin(ScrollTrigger);
 
-
 const Home = () => {
     const homeRef = useRef(null);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        // const titleB = homeRef.current.querySelector('.banniere-text');
-        // const appbar = homeRef.current.querySelector('.app-bar');
-        // gsap.fromTo(appbar, { backgroundColor: "transparent", duration: .5, delay: 0 }, {
-        //     backgroundColor: "grey",
-        //     duration: 0.5,
-        //     delay: 0,
-        //     scrollTrigger: {
-        //         trigger: titleB,
-        //         toggleActions: "restart none reverse none",
-        //         start: "+=0 70",
-        //         end: "+=50 70",
-        //     }
-
-        // });
-
-
-
+        if (Cookies.get('jwt') && Cookies.get('email')) {
+            console.log("REDIS ")
+            dispatch(loginClient({ emailBase: Cookies.get('email'), jwt: Cookies.get('jwt'), email: null, mdp: null }));
+        }
     }, []);
+
+
     return (
         <div ref={homeRef}>
             <NavBar />

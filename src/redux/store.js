@@ -2,10 +2,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import clientReducer from "./clientSlice";
 import hotelReducer from "./hotelSlice";
 import agenceReducer from "./agenceSlice";
+import adminSiteReducer from "./adminSlice";
 export default configureStore({
     reducer: {
         client: clientReducer,
         hotel: hotelReducer,
-        agence: agenceReducer
+        agence: agenceReducer,
+        admin: adminSiteReducer,
     }
 })

@@ -22,15 +22,15 @@ import KeyRoundedIcon from "@mui/icons-material/KeyRounded";
 import "../styles/profile.css";
 import ModifyForm from "./ModifyForm";
 
-const profileInfos = () => {
-  const client01 = {
-    id: "#022156",
-    nom: "Blanco",
-    prenom: "George",
-    email: "GGGB@gmail.com",
-    num: "055478953",
-    mdp: "i_love_fajitas55",
-  };
+import { useDispatch, useSelector } from "react-redux";
+import { logoutClient } from "../../redux/clientSlice";
+import { useNavigate } from "react-router-dom";
+
+const ProfileInfos = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const clientData = useSelector(state => state.client);
+
 
   return (
     <Box
@@ -70,20 +70,20 @@ const profileInfos = () => {
                   fontSize: { xs: 26, sm: 32 },
                 }}
               >
-                {client01.nom[0]}
-                {client01.prenom[0]}
+                {clientData.nom[0]}
+                {clientData.prenom[0]}
               </Avatar>
 
               <Box mx={2}>
                 <Typography variant="h5">
-                  {client01.nom} {client01.prenom}
+                  {clientData.nom} {clientData.prenom}
                 </Typography>
                 <Typography
                   variant="h6"
                   component="h2"
                   color="secondary.contrastText"
                 >
-                  {client01.id}
+                  {clientData.idclient}
                 </Typography>
               </Box>
             </Box>
@@ -120,7 +120,7 @@ const profileInfos = () => {
               >
                 {" "}
                 <LocalPhoneIcon sx={{ fontSize: { xs: 16, sm: 20 } }} />
-                {client01.num}
+                {clientData.phone}
               </Typography>
               <Typography
                 variant="h6"
@@ -129,7 +129,7 @@ const profileInfos = () => {
               >
                 {" "}
                 <EmailIcon sx={{ fontSize: { xs: 16, sm: 20 } }} />{" "}
-                {client01.email}
+                {clientData.email}
               </Typography>
             </Box>
             <Button
@@ -137,6 +137,10 @@ const profileInfos = () => {
               variant="text"
               sx={{ color: "#CF2F2F", width: "45%" }}
               startIcon={<LogoutIcon />}
+              onClick={() => {
+                dispatch(logoutClient());
+                navigate('/');
+              }}
             >
               Deconnexion
             </Button>
@@ -160,4 +164,4 @@ const profileInfos = () => {
   );
 };
 
-export default profileInfos;
+export default ProfileInfos;

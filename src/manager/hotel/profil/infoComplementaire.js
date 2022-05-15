@@ -4,15 +4,33 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
 const equipement = [
-    'Wifi Gratuit',
+    'Wifi gratuit',
     "Sauna",
-    'Parking Gratuit',
+    'Parking gratuit',
     "Plage",
     'Restaurant'
 ]
+export const includeArray = (array_container = [], array_content = []) => {
+    // si tout les element du content sont dans le container alors
+    //retounerr true sinon false
+
+    array_container = array_container.map((r) => r.nom_eq);
+    console.log(array_container, "now")
+    console.log(array_content);
+    let inc = true; let i = 0;
+    while (inc && i < array_content.length) {
+        inc = array_container.includes(array_content[i]);
+        i++;
+    };
+
+    console.log(inc);
+    return inc;
+}
 
 
 
@@ -23,7 +41,7 @@ const equiStyle = {
     height: 60,
 
 }
-const InfoComplementaire = () => {
+const InfoComplementaire = ({ infoHotel, setInfoHotel }) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -34,8 +52,10 @@ const InfoComplementaire = () => {
     };
     return (
         <>
-            <Grid item xs={12} sm={4} justifyContent={"center"} alignItems="center" sx={equiStyle} >
-                <Rating />
+            <Grid item xs={12} sm={4} justifyContent={"center"} alignItems="center" sx={equiStyle}  >
+                <Rating value={Number(infoHotel.note)} onChange={(event, newValue) => {
+                    setInfoHotel({ ...infoHotel, note: newValue });
+                }} />
 
             </Grid>
 
@@ -61,7 +81,22 @@ const InfoComplementaire = () => {
                         TransitionComponent={Fade}
                     >
                         {equipement.map((eq, index) => {
-                            return <MenuItem onClick={handleClose} key={"e" + index}>{eq}</MenuItem>
+                            return <MenuItem onClick={() => {
+                            }} key={"e" + index}>
+                                <FormControlLabel
+                                    control={<Checkbox checked={includeArray(infoHotel.equipementh, [eq])} />} label={eq}
+                                    onChange={(e) => {
+                                        let tempEq = infoHotel.equipementh;
+                                        if (e.target.checked) {
+                                            tempEq = [...tempEq, { nom_eq: eq }];
+                                        } else {
+                                            tempEq = tempEq.filter(teq => teq.nom_eq != eq);
+                                        }
+                                        setInfoHotel({ ...infoHotel, equipementh: tempEq });
+                                    }}
+                                />
+
+                            </MenuItem>
 
                         })}
 
@@ -69,7 +104,7 @@ const InfoComplementaire = () => {
                 </div>
             </Grid>
             <Grid item xs={12} sm={4} justifyContent={"center"} sx={equiStyle}>
-                <TextField type='text' label="Hotel's Town" onChange={() => { }} />
+                <TextField type='text' label="Hotel's Town" value={infoHotel.villeh} onChange={(e) => { setInfoHotel({ ...infoHotel, villeh: e.target.value }) }} />
             </Grid>
 
         </>

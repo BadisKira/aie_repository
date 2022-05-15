@@ -13,6 +13,7 @@ import SignalWifi4BarIcon from "@mui/icons-material/SignalWifi4Bar";
 import BeachAccessIcon from "@mui/icons-material/BeachAccess";
 import PoolIcon from "@mui/icons-material/Pool";
 import LocalParkingIcon from "@mui/icons-material/LocalParking";
+import RestaurantIcon from '@mui/icons-material/Restaurant';
 
 const hotelInformation = {
   id: 1,
@@ -24,19 +25,26 @@ const hotelInformation = {
   description: "",
 };
 
-const equipments = [
-  {
-    id: 1,
-    label: "Wifi gratuit",
-    icon: <SignalWifi4BarIcon />,
-  },
-  { id: 2, label: "Paking gratuit", icon: <LocalParkingIcon /> },
-  { id: 3, label: "Plage", icon: <BeachAccessIcon /> },
-  { id: 4, label: "Piscine", icon: <PoolIcon /> },
-  { id: 5, label: "Sauna", icon: <HotTubIcon /> },
-];
+const getEquiIcon = (eq) => {
+  switch (eq) {
+    case 'Parking gratuit': return <LocalParkingIcon />;
+    case 'Plage': return <BeachAccessIcon />;
+    case 'Restaurant': return <RestaurantIcon />;
+    case 'Sauna': return <HotTubIcon />;
+    case 'Wifi gratuit': return <SignalWifi4BarIcon />;
+    case "Piscine": return <PoolIcon />
+  }
+}
 
-const HotelInfos = () => {
+
+
+const HotelInfos = ({ equipementh, descriptionh }) => {
+  console.log("mon eq ==> ", equipementh);
+  const equipments = equipementh.map((eq, index) => {
+    return { id: index, label: eq.nom_eq, icon: getEquiIcon(eq.nom_eq) }
+  });
+
+
   const [readMore, setReadMore] = useState(false);
   const description =
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. A eaque nostrum eos commodi laudantium! Suscipit minus nemo ex ratione voluptate temporibus maiores tempora molestiae iste magni, deserunt aspernatur, amet, numquam aliquam excepturi iure quae reprehenderit vero similique sequi? Esse at temporibus repellat laborum tempore! Consequatur maiores corporis voluptate deleniti molestiae ea. Ratione, tenetur repellat! Accusamus sint dicta beatae voluptates recusandae quibusdam perferendis ea, laborum porro, libero, ratione nesciunt modi nostrum impedit iste officia eaque. A ab pariatur quod corrupti quis.";
@@ -71,7 +79,7 @@ const HotelInfos = () => {
           A propos de notre hotel
         </Typography>
         <Typography sx={{ textAlign: "justify" }}>
-          {readMore ? description : `${description.substring(0, 250)}...`}
+          {readMore ? { descriptionh } : `${descriptionh.substring(0, 200)}...`}
 
           <Button onClick={() => setReadMore(!readMore)}> Lire plus</Button>
         </Typography>

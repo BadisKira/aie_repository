@@ -17,11 +17,9 @@ const ContactUsForm = (props) => {
   const refForm = useRef();
   const handelSubmit = (e) => {
     e.preventDefault();
-    console.log(formVal)
     // SERVICE ID , Template id , template params=" ce sont nos valeurs envoyer  " , userID  
     emailjs.send("service_11frsrf", "template_9ao3e8l", formVal, "b5gIP-xe9eO-E6IsL")
       .then(response => {
-        console.log(response);
         setAlertInfo({ open: true, message: "Message envoyé avec succes", type: "success" });
 
         setTimeout(() => {
@@ -30,7 +28,6 @@ const ContactUsForm = (props) => {
 
       })
       .catch(err => {
-        console.log(err);
         setAlertInfo({ open: true, message: "Erreur , Message non envoyé", type: "error" });
         setTimeout(() => {
           setAlertInfo((prev) => ({ ...prev, open: false }));

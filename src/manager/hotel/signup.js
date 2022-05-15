@@ -3,16 +3,58 @@ import { Link } from "react-router-dom";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import GoogleIcon from "@mui/icons-material/Google";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useDispatch, useSelector } from "react-redux";
+import { loginManagerHotel } from "../../redux/hotelSlice";
+import { useNavigate } from "react-router-dom";
 
+import { useEffect, useState } from "react";
+import PopUp from "../../components/popUp";
 
-
-import { useState } from "react";
 
 
 
 const SignUp = () => {
     const [showMdp, setShowMdp] = useState(false);
     const handelShowMdp = () => setShowMdp(!showMdp);
+    const [formInfo, setFormInfo] = useState({ adminh: "", passwordh: 'Admin Hotel 1', emailh: "Adminhotel17@gmail.com" });
+    const [showFormLogin, setShowFormLogin] = useState(true);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const hotelData = useSelector(state => state.hotel);
+
+
+    const handelClickSignUp = () => {
+
+        console.log(formInfo);
+        if (showFormLogin) { //login 
+            if (formInfo.emailh !== '' && formInfo.passwordh !== "") {
+
+                dispatch(loginManagerHotel({ emailh: formInfo.emailh, passwordh: formInfo.passwordh })).then((res) => {
+                    if (res) {
+                        navigate('/manager/hotel/sign-up');
+                        //window.location.reload();
+                    }
+                })
+            }
+        } else { //insc
+            axios.post('http://localhost:80/bookAndGo/api/ADMIN/adminhotel/registerAdminh', { adminh: formInfo.adminh, passwordh: formInfo.passwordh, emailh: formInfo.emailh })
+                .then(res => {
+                    console.log(res);
+                })
+                .catch(err => console.log(err));
+        }
+    };
+
+
+    useEffect(() => {
+        console.log(hotelData);
+    }, [hotelData]);
+
+    const handelChange = (e) => {
+        setFormInfo((prev) => ({ ...formInfo, [e.target.name]: e.target.value }))
+    }
 
     return (
         <Box sx={{ background: "darkcyan", height: "100vh", minHeight: "600px" }}
@@ -45,7 +87,7 @@ const SignUp = () => {
 
                     })}>
                     <Typography component='h2' variant='h5' fontWeight={"800"} sx={{ color: "white" }}>
-                        Sign Up
+                        {showFormLogin ? "Login" : "Sign in"}
                     </Typography>
                     <Box>
                         <GoogleIcon size="small" sx={{ color: "white", margin: "0 5px" }} />
@@ -55,17 +97,23 @@ const SignUp = () => {
                 </Paper>
 
 
-                {/** VERITABLES FORM DE MERDE MTN  */}
                 <Box sx={{
                     marginTop: "10px",
                     width: "90%",
                     display: "flex", flexDirection: "column",
                     alignItems: "center",
                     justifyContent: "space-evenly",
-                    minHeight: "150px",
+                    minHeight: "170px",
                 }}>
-                    <TextField size="small" fullWidth variant="outlined" label="email" type={"email"} />
-                    <TextField size="small" fullWidth variant="outlined" label="password" type={showMdp ? "text" : "password"} />
+                    <TextField size="small" fullWidth variant="outlined" name="emailh" label="E-mail" type={"email"} value={formInfo.emailh} onChange={handelChange} />
+
+                    {!showFormLogin &&
+                        <TextField size="small" fullWidth variant="outlined" name="adminh" label="Admin-pseudo" type={"text"} value={formInfo.adminh} onChange={handelChange} />
+                    }
+                    <TextField size="small" fullWidth variant="outlined" name="passwordh"
+                        label="password" type={showMdp ? "text" : "password"}
+                        value={formInfo.passwordh} onChange={handelChange}
+                    />
 
                 </Box>
                 <Box alignSelf={"start"} display="flex" alignItems={"center"}>
@@ -79,9 +127,20 @@ const SignUp = () => {
                     marginBottom: "20px"
                 }}>
 
-                    <Button color="primary" variant="contained" fullWidth>
-                        Sign up
+                    <Button color="primary" variant="contained" fullWidth
+                        onClick={handelClickSignUp}>
+                        {showFormLogin ? "Login" : "Sign in"}
                     </Button>
+
+                    <Typography component='p' variant='body2'
+                        sx={{
+                            marginTop: 2, cursor: 'pointer', '&:hover': {
+                                color: "#2196f3"
+                            }
+                        }}
+                        onClick={() => { setShowFormLogin(!showFormLogin) }}>
+                        {showFormLogin ? 'Creer votre compte ' : 'Vous avez un compte ? connectez vous'}
+                    </Typography>
 
                 </Box>
 
@@ -99,6 +158,11 @@ const SignUp = () => {
             </Button>
 
 
+
+
+            {/* {hotelData.etat === "rejected" &&
+                <PopUp type="error" text={hotelData.message} />
+            } */}
 
         </Box >
 

@@ -24,7 +24,7 @@ const Notes = {
   5: "Parfait",
 };
 
-const Header = () => {
+const Header = ({ nomh, adresseh, emailh, note, villeh, numh }) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -37,7 +37,7 @@ const Header = () => {
       sx={{ display: "flex", justifyContent: "space-between", boxShadow: "3" }}
     >
       <Box>
-        <Typography variant="h4">Hotel du Nord</Typography>
+        <Typography variant="h4">{nomh}</Typography>
 
         <Box
           sx={{
@@ -59,13 +59,14 @@ const Header = () => {
             precision={0.5}
           />
           <Typography variant="body1" sx={{ ml: 2 }}>
-            {Notes[4]}
+            {Notes[note]}
           </Typography>
         </Box>
         <Typography variant="h6" color="#434343" sx={{ fontSize: "1rem" }}>
           {" "}
-          <LocationOnRoundedIcon fontSize="small" /> Bd Colonel Amirouche,
-          Béjaïa
+          <LocationOnRoundedIcon fontSize="small" />
+          {adresseh}
+          {villeh}
         </Typography>
         <Box
           sx={{
@@ -74,11 +75,11 @@ const Header = () => {
           }}
         >
           <Typography mr={3} color="#434343" variant="subtitle1">
-            <LocalPhoneIcon fontSize="small" /> 034112578{" "}
+            <LocalPhoneIcon fontSize="small" /> {numh}{" "}
           </Typography>
           <Typography mr={3} color="#434343" variant="subtitle1">
             {" "}
-            <EmailIcon fontSize="small" /> HotelDuNord@gmail.com
+            <EmailIcon fontSize="small" />{emailh}
           </Typography>
         </Box>
       </Box>

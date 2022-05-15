@@ -40,16 +40,15 @@ const LoginRegister = () => {
     if (Cookies.get('jwt')) {
       navigate('/');
     };
-    console.log("effedt de dispatch")
   }, [])
 
 
   const [registerInfo, setRegisterInfo] = useState({
-    nom: "badis",
-    prenom: "df",
-    email: "badis1@gmail.com",
-    numTel: "0542253312",
-    mdp: "badis1",
+    nom: "",
+    prenom: "",
+    email: "",
+    numTel: "",
+    mdp: "",
   });
 
   const [registerError, setRegisterError] = useState({
@@ -70,13 +69,12 @@ const LoginRegister = () => {
     const name = event.target.name;
     const value = event.target.value;
     setLoginInfo({ ...loginInfo, [name]: value });
-    // console.log(value);
   };
 
   //Envie du formulaire de connexion
   const handleSubmitLogin = (event) => {
     event.preventDefault();
-    dispatch(loginClient(loginInfo)).then((res) => {
+    dispatch(loginClient({ ...loginInfo, emailBase: null, jwt: null })).then((res) => {
       if (typeof res.payload.error !== "undefined")
         setShowAlert(true);
       else {
@@ -98,7 +96,6 @@ const LoginRegister = () => {
   //afficher or masqu le mot de passe
   const handleChangeSwitch = (event) => {
     setShowMDP(event.target.checked);
-    // console.log(showMDP);
   };
 
   // envoie du formulaire
@@ -149,7 +146,7 @@ const LoginRegister = () => {
 
     //UGH MOST OF THESE HAVE TO MOVE OUT TO THE PARENT COMPONENT
     if (!errInRegisterForm) {
-      dispatch(signupClient(registerInfo)).then((res) => {
+      dispatch(signupClient({ ...registerInfo, idclient: null })).then((res) => {
         if (typeof res.payload.error !== "undefined")
           setShowAlert(true);
         else {
@@ -278,10 +275,9 @@ const LoginRegister = () => {
 
       {clientData.error !== null &&
         <Snackbar open={showAlert}
-
           anchorOrigin={{ vertical: 'bottom', horizontal: "left" }}
           autoHideDuration={3000}
-          onClose={() => { console.log("fuck") }} >
+        >
           <Alert onClose={() => { setShowAlert(false) }} severity="error" sx={{ width: "300px", background: "red", color: "black" }} >
             {clientData.error}
           </Alert>

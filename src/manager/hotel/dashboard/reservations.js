@@ -6,6 +6,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { Grid, Paper, Typography, Box } from '@mui/material';
+import { useSelector, useDispatch } from "react-redux";
+import { getHotelInfoAdmin } from "../../../redux/hotelSlice";
+import { useEffect, useState } from "react";
 
 function createData(ID, roomNbr, clientID, clientName, dateArr, dateDep, prix) {
     return { ID, roomNbr, clientID, clientName, dateArr, dateDep, prix };
@@ -15,7 +18,7 @@ const rows = [
     createData(1, 102, 159, "Jean luc ", "14/05/2020", "25/07/2022", 17500),
     createData(2, 101, 11, "Anya", "24/07/2020", "25/07/2022", 1400),
     createData(3, 102, 109, "Badis ", "24/07/2020", "25/07/2022", 78000),
-    createData(4, 103, 69, "JAMil ", "24/07/2020", "25/07/2022", 1200),
+    createData(4, 103, 69, "Jamil ", "24/07/2020", "25/07/2022", 1200),
     createData(5, 104, 750, "Aymen balavoine ", "24/07/2020", "25/07/2022", 600),
     createData(6, 145, 11, "ERIC ZEMMOUR ", "24/07/2020", "25/07/2022", 78590),
     createData(7, 202, 15, "Jean la salle ", "24/07/2020", "25/07/2022", 6000),
@@ -25,7 +28,14 @@ const rows = [
 ];
 
 
+
 const Reservations = () => {
+    // const hotelData = useSelector(state => state.hotel);
+    // const dispatch = useDispatch();
+    // useEffect(() => {
+    //     dispatch(getHotelInfoAdmin({ emailh: "Adminhotel17@gmail.com", passwordh: "AdminHotel1" })); //jwth 
+    // }, [hotelData])
+    // const [rows, setRows] = useState();
     return (
         <Grid>
             <Typography component={'h2'} variant='h5' fontWeight={600} marginBottom={2}>

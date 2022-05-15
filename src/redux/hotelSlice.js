@@ -19,88 +19,213 @@ export const getAllHotels = createAsyncThunk('hotel/getHotel', async () => {
 
 });
 
-export const getAllHotelsVille = createAsyncThunk('hotel/getHotelVille', async () => {
-    return axios.get('http://localhost:80/bookAndGo/api/ADMIN/adminhotel/AllHotels')
+export const loginManagerHotel = createAsyncThunk('hotel/login', async (data) => {
+    return axios.post('http://localhost:80/bookAndGo/api/ADMIN/adminhotel/loginAdminH', data)
         .then((res) => res.data)
         .catch((err) => err)
 })
+
+
+export const getAllHotelsVille = createAsyncThunk('hotel/getHotelVille', async (ville) => {
+
+    return axios.get(`http://localhost:80/bookAndGo/api/ADMIN/adminhotel/AllHotelville/${ville}`)
+        .then((res) => {
+            return res.data;
+        })
+        .catch((err) => {
+            return err.response.data;
+        })
+
+
+});
+
+export const getAllHotelsNote = createAsyncThunk('hotel/getHotelNote', async () => {
+    return axios.get(`http://localhost:80/bookAndGo/api/ADMIN/adminhotel/allHotelnote`)
+        .then((res) => {
+            return res.data;
+        })
+        .catch((err) => {
+            return err.response.data;
+        })
+});
+
+export const getAllHotelsVilleNote = createAsyncThunk('hotel/getHotelNote', async (ville) => {
+    return axios.get(`http://localhost:80/bookAndGo/api/ADMIN/adminhotel/allHotelnote/${ville}`)
+        .then((res) => {
+            return res.data;
+        })
+        .catch((err) => {
+            return err.response.data;
+        })
+});;
+
+export const getOneHotel = createAsyncThunk('hotel/getOne', async (idh) => {
+
+    return axios.get(`http://localhost:80/bookAndGo/api/ADMIN/adminhotel/getOneHotel/${idh}`)
+        .then(res => res.data)
+        .catch(err => err.response.data)
+
+})
+
+
+
+export const getHotelInfoAdmin = createAsyncThunk('hotel/getHotelInfoAdmin', async (data) => {
+    return axios.post('http://localhost:80/bookAndGo/api/ADMIN/adminhotel/getHotelInfoAdmin', data)
+        .then((res) => res.data)
+        .catch(err => err.response.data);
+})
+
+
+export const editerInfoHotel = createAsyncThunk('hotel/editerHotelInfoAdminh', async (data) => {
+    return axios.post('http://localhost:80/bookAndGo/api/ADMIN/adminhotel/updateInfoHotel', data)
+        .then((res) => res.data)
+        .catch(err => err.response.data);
+})
+
 
 
 
 export const hotelSlice = createSlice({
     name: "hotel",
     initialState: {
-        initHotels: hotelFakeData,
-        hotels: hotelFakeData
-    }
-    // [{
-    //     idh: '',
-    //     nomh: "",
-    //     adresseh: "",
-    //desch:''
-    //     emailh: "",
-    //     adminh: "",
-    //     passwordh: '',
-    //     note: '',
-    //     equipementh:[] , 
-    //      imgh:[],
-    // }]
-    ,
+        initHotels: [],
+        hotels: [],
+        hotelAdmin: {},
+        etat: "",
+        message: "",
+    },
     reducers: {
         filtrerNote: (state, action) => {
-            console.log("filtrer note ", action.payload);
+            console.log(state.hotels);
             if (action.payload > 0) {
                 state.hotels = state.initHotels.filter(hotel => {
-                    return hotel.note === action.payload;
+                    return hotel.note == action.payload;
                 });
 
             } else {
                 state.hotels = state.initHotels;
             }
 
-            console.log("apres filter note ", state.hotels);
         },
 
         filtrerEquipement: (state, action) => {
-            console.log("ACTION PAYLOAD ++>", action.payload);
+            console.log("EQUIPEMENT +++>", state.hotels);
+
             if (action.payload.length > 0 || (state.hotels.length >= action.payload.length)) {
                 state.hotels = state.hotels.filter(hotel => {
                     return includeArray(hotel.equipementh, action.payload);
                 })
             }
-            console.log("sttttttttttttate )))> =", state.hotels);
 
         }
     },
     extraReducers: {
         [getAllHotels.fulfilled]: (state, action) => {
+            state.initHotels = action.payload.hotels;
             state.hotels = action.payload.hotels;
+            state.etat = "fulfilled";
+        },
+        [getAllHotels.pending]: (state) => {
+            state.etat = "pending";
+        },
+
+        [loginManagerHotel.fulfilled]: (state, action) => {
+            if (action.payload.error) {
+                state.etat = 'rejected';
+                state.message = action.payload.error;
+            } else {
+                state.hotelAdmin = action.payload;
+                state.message = action.payload.message;
+                Cookies.set('jwth', action.payload.jwtH)
+            }
 
         },
-        [getAllHotels.rejected]: (state, action) => {
+
+        [loginManagerHotel.pending]: (state) => {
+            state.etat = "pending";
+        },
+        [loginManagerHotel.rejected]: (state) => {
+            state.etat = "rejected";
+        },
+
+
+
+
+
+
+
+        [getHotelInfoAdmin.fulfilled]: (state, action) => {
+            state.etat = "fulfilled";
+            state.hotelAdmin = action.payload;
+            // Cookies.set('jwth', action.payload.jwtH);
 
         },
-        [getAllHotels.pending]: (state, action) => {
+        [getHotelInfoAdmin.pending]: (state) => {
+            state.etat = "pending";
+        },
 
+        [editerInfoHotel.fulfilled]: (state, action) => {
+            state.message = action.payload;
+        },
+
+
+
+
+        [getAllHotelsVille.fulfilled]: (state, action) => {
+            state.initHotels = action.payload.hotels;
+            state.hotels = action.payload.hotels;
+            state.etat = "fulfilled";
+        },
+        [getAllHotelsVille.pending]: (state) => {
+            state.etat = "pending";
+        },
+        [getAllHotelsVilleNote.pending]: (state) => {
+            state.etat = "pending";
+        },
+        [getAllHotelsVilleNote.fulfilled]: (state, action) => {
+            state.initHotels = action.payload.hotels;
+            state.hotels = action.payload.hotels;
+            state.etat = "fulfilled";
+        },
+
+
+
+        [getAllHotelsNote.pending]: (state) => {
+            state.etat = "pending";
+        },
+        [getAllHotelsNote.fulfilled]: (state, action) => {
+            state.initHotels = action.payload.hotels;
+            state.hotels = action.payload.hotels;
+            state.etat = "fulfilled";
+        },
+
+
+
+
+        [getOneHotel.fulfilled]: (state, action) => {
+            console.log('getOneHotel', action.payload);
+            state.hotels = [action.payload];
+            state.etat = "fulfilled";
+        },
+        [getOneHotel.pending]: (state) => {
+            state.etat = "pending";
+        },
+        [getOneHotel.rejected]: (state) => {
+            state.etat = "pending";
         }
-
-
     }
 });
 
 
-const includeArray = (array_container = [], array_content = []) => {
+export const includeArray = (array_container = [], array_content = []) => {
     // si tout les element du content sont dans le container alors
     //retounerr true sinon false
-    let inc = true; let i = 0;
     console.log(array_container);
-    console.log(array_content);
+    let inc = true; let i = 0;
     while (inc && i < array_content.length) {
         inc = array_container.includes(array_content[i]);
-        console.log("inc ==> ", inc);
         i++;
     };
-
     return inc;
 }
 
