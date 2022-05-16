@@ -8,7 +8,7 @@ import WineBarIcon from '@mui/icons-material/WineBar';
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { filtrerNote, filtrerEquipement } from "../../redux/hotelSlice";
+import { filtrerNote, filtrerEquipement, filterHotels } from "../../redux/hotelSlice";
 
 // const buttonStyle = (theme) => ({
 //     display: 'flex', justifyContent: "space-evenly",
@@ -27,31 +27,24 @@ const SideBar2 = () => {
     const [rating, setRating] = useState(0);
     const navigate = useNavigate();
     const { typeR, ville } = useParams();
-    const disptach = useDispatch();
+    const dispatch = useDispatch();
     const [equiState, setEquiState] = useState([]);
 
 
     const handelRadioEq = (e) => {
-
-
-
-
         if (e.target.checked) {
-            setEquiState([...equiState, e.target.value]);
+            setEquiState(prev => ([...equiState, e.target.value]));
         } else {
             let t = equiState.filter(val => val !== e.target.value);
-            setEquiState(t);
-        }
+            setEquiState(prev => t);
+        };
+        //
     };
 
 
     useEffect(() => {
-        disptach(filtrerNote(rating));
+        dispatch(filterHotels({ note: rating, eqs: equiState }));
     }, [equiState]);
-
-    useEffect(() => {
-        disptach(filtrerEquipement(equiState));
-    }, [equiState])
 
 
     return (
@@ -101,7 +94,7 @@ const SideBar2 = () => {
                             size="large"
                             onChange={(event, newValue) => {
                                 setRating(newValue);
-                                disptach(filtrerNote(newValue));
+                                dispatch(filterHotels({ note: newValue, eqs: equiState }));
                             }}
                         />
                     </Box>
@@ -114,7 +107,7 @@ const SideBar2 = () => {
                         </Typography>
                         <FormControl >
                             <RadioGroup defaultChecked={"Wifi gratuit"}>
-                                <FormControlLabel value={"wifi gratuit"} control={<Checkbox />} onChange={handelRadioEq} label="Wifi gratuit" />
+                                <FormControlLabel value={"Wifi gratuit"} control={<Checkbox />} onChange={handelRadioEq} label="Wifi gratuit" />
                                 <FormControlLabel value={"Sauna"} control={<Checkbox />} onChange={handelRadioEq} label="Sauna" />
                                 <FormControlLabel value={"Plage"} control={<Checkbox />} onChange={handelRadioEq} label="Plage" />
                                 <FormControlLabel value={"Restaurant"} control={<Checkbox />} onChange={handelRadioEq} label="Restaurant" />

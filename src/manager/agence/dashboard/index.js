@@ -1,9 +1,8 @@
 import { Box } from "@mui/material";
+import PageNotFinished from "../../pageNotFinished";
 const DashboardHotel = () => {
     return (
-        <Box>
-            Dashboard hotel tu connais mec hein j'espere mon pote
-        </Box>
+        <PageNotFinished />
     )
 };
 

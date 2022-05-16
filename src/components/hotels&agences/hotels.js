@@ -18,9 +18,9 @@ const NotFoundComp = () => {
                 color: "red", width: "80%", margin: "0px auto", paddingBottom: "25px"
             }}
         >
-            <h1>
-                Erreur Not found
-            </h1>
+            <h2>
+                Empty
+            </h2>
             <h3>Nous sommes desolés de vous dire que nous avons trouver aucun resultat pour votre recherche </h3>
         </div>)
 };
@@ -31,7 +31,6 @@ const SectionHotels = () => {
     const clientData = useSelector(state => state.client);
     const [clientFav, setClientFav] = useState([]);
     useEffect(() => {
-        console.log("EREN YEAGER ==>", clientData);
         if (clientData.favs.favoris) {
             let temp = clientData.favs.favoris.map((fv) => {
                 return fv.idh;

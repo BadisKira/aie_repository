@@ -8,6 +8,11 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
 gsap.registerPlugin(ScrollTrigger);
 
+const tabDes = [
+    { dest: "Singapour", img: process.env.PUBLIC_URL + " /assets/singapour.jpg" },
+    { dest: "Bejaia", img: process.env.PUBLIC_URL + " /assets/bejaia.jfif" },
+    { dest: "Tokyo", img: process.env.PUBLIC_URL + " /assets/tokyo.jfif" },
+]
 
 const DestinationsContainer = () => {
 
@@ -50,7 +55,16 @@ const DestinationsContainer = () => {
 
             <Grid container rowSpacing={2} columnSpacing={{ xs: 0, sm: 2, md: 3 }}>
 
-                <Grid item xs={12} md={6} lg={4}>
+                {tabDes.map((des) => {
+                    return (
+                        <Grid item xs={12} md={6} lg={4} key={des.dest}>
+                            <Destination dest={des.dest} img={des.img} />
+                        </Grid>
+                    )
+                })
+
+                }
+                {/* <Grid item xs={12} md={6} lg={4}>
                     <Destination dest={"Porto Rico"} />
                 </Grid>
 
@@ -60,7 +74,7 @@ const DestinationsContainer = () => {
 
                 <Grid item xs={12} md={6} lg={4}>
                     <Destination dest={"Seville de l'espagne antique"} />
-                </Grid>
+                </Grid> */}
 
             </Grid>
 

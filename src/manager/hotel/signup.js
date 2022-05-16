@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 import PopUp from "../../components/popUp";
+import { Snackbar, Alert } from "@mui/material";
+
 
 
 
@@ -23,6 +25,7 @@ const SignUp = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const hotelData = useSelector(state => state.hotel);
+    const [pop, setPop] = useState({ show: false, message: "", type: "error" });
 
 
     const handelClickSignUp = () => {
@@ -33,24 +36,37 @@ const SignUp = () => {
 
                 dispatch(loginManagerHotel({ emailh: formInfo.emailh, passwordh: formInfo.passwordh })).then((res) => {
                     if (res) {
-                        navigate('/manager/hotel/sign-up');
-                        //window.location.reload();
+                        if (res.payload.error) {
+                            console.log(res.payload)
+                            setPop({ show: true, message: res.payload.error, type: "error" });
+                        } else {
+                            // setPop({ show: true, message: "fuck off", type: "success" });
+                            navigate('/manager/hotel/dashboard');
+
+                        }
+
+                        // window.location.reload();
                     }
                 })
             }
         } else { //insc
             axios.post('http://localhost:80/bookAndGo/api/ADMIN/adminhotel/registerAdminh', { adminh: formInfo.adminh, passwordh: formInfo.passwordh, emailh: formInfo.emailh })
                 .then(res => {
-                    console.log(res);
+                    if (res.data.message) {
+                        setPop({ show: true, message: res.data.message, type: "success" });
+                    };
+                    if (res.data.error) {
+                        setPop({ show: true, message: res.data.error, type: "error" });
+                    }
                 })
                 .catch(err => console.log(err));
         }
     };
 
 
-    useEffect(() => {
-        console.log(hotelData);
-    }, [hotelData]);
+    // useEffect(() => {
+    //     console.log(hotelData);
+    // }, [hotelData]);
 
     const handelChange = (e) => {
         setFormInfo((prev) => ({ ...formInfo, [e.target.name]: e.target.value }))
@@ -160,9 +176,21 @@ const SignUp = () => {
 
 
 
-            {/* {hotelData.etat === "rejected" &&
-                <PopUp type="error" text={hotelData.message} />
-            } */}
+            <>
+                <Snackbar open={pop.show}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: "left" }}
+                    autoHideDuration={3000}
+                >
+                    <Alert onClose={() => { setPop({ ...pop, show: false }) }} severity={pop.type}
+                        sx={{
+                            width: "300px",
+                            color: "black"
+                        }} >
+                        {pop.message}
+                    </Alert>
+                </Snackbar>
+            </>
+
 
         </Box >
 

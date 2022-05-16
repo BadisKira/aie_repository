@@ -1,21 +1,70 @@
-import { Box, Card, Paper, Typography, Grid, MuiLink, Switch, Input, Button, TextField } from "@mui/material";
+import { Box, Card, Paper, Typography, Grid, Snackbar, Alert, Switch, Input, Button, TextField } from "@mui/material";
 import { Link } from "react-router-dom";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import GoogleIcon from "@mui/icons-material/Google";
 
 
-
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { loginAgence, registerAgence } from "../../redux/agenceSlice";
 
 
 
 const SignUp = () => {
     const [showMdp, setShowMdp] = useState(false);
     const handelShowMdp = () => setShowMdp(!showMdp);
+    const [pop, setPop] = useState({ show: false, message: "", type: "error" });
+    const [formInfo, setFormInfo] = useState({ adminag: "", mdp_adminag: 'adminAgence1', emailagence: "adminAgence1@gmail.com" });
+    const [showFormLogin, setShowFormLogin] = useState(true);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handelChange = (e) => {
+        setFormInfo((prev) => ({ ...formInfo, [e.target.name]: e.target.value }))
+    }
+    const handelClickSignUp = () => {
+
+        console.log(formInfo);
+        if (showFormLogin) { //login 
+            if (formInfo.emailagence !== '' && formInfo.mdp_adminag !== "") {
+
+                dispatch(loginAgence({ emailagence: formInfo.emailagence, mdp_adminag: formInfo.mdp_adminag })).then((res) => {
+                    if (res) {
+                        if (res.payload.error) {
+                            console.log(res.payload)
+                            setPop({ show: true, message: res.payload.error, type: "error" });
+                        } else {
+                            // setPop({ show: true, message: "fuck off", type: "success" });
+                            navigate('/manager/agence/*');
+                        }
+
+                        // window.location.reload();
+                    }
+                })
+            }
+        } else { //insc
+
+            dispatch(registerAgence({ adminag: formInfo.adminag, mdp_adminag: formInfo.mdp_adminag, emailagence: formInfo.emailagence }))
+                .then(res => {
+                    if (res.payload.message) {
+                        setPop({ show: true, message: res.payload.message, type: "success" });
+                    };
+                    if (res.payload.error) {
+                        setPop({ show: true, message: res.payload.error, type: "error" });
+                    }
+                })
+                .catch(err => console.log(err));
+        }
+    };
+
+
+
 
     return (
-        <Box sx={{ background: "darkcyan", height: "100vh", minHeight: "600px" }}
+        <Box sx={{ background: "#741258", height: "100vh", minHeight: "600px" }}
             display="flex" alignItems="center" justifyContent={"center"}>
 
             <Box component="form" sx={theme => ({
@@ -62,10 +111,17 @@ const SignUp = () => {
                     display: "flex", flexDirection: "column",
                     alignItems: "center",
                     justifyContent: "space-evenly",
-                    minHeight: "150px",
+                    minHeight: "170px",
                 }}>
-                    <TextField size="small" fullWidth variant="outlined" label="email" type={"email"} />
-                    <TextField size="small" fullWidth variant="outlined" label="password" type={showMdp ? "text" : "password"} />
+                    <TextField size="small" fullWidth variant="outlined" name="emailagence" label="E-mail" type={"email"} value={formInfo.emailagence} onChange={handelChange} />
+
+                    {!showFormLogin &&
+                        <TextField size="small" fullWidth variant="outlined" name="adminag" label="Admin-pseudo" type={"text"} value={formInfo.adminag} onChange={handelChange} />
+                    }
+                    <TextField size="small" fullWidth variant="outlined" name="mdp_adminag"
+                        label="password" type={showMdp ? "text" : "password"}
+                        value={formInfo.mdp_adminag} onChange={handelChange}
+                    />
 
                 </Box>
                 <Box alignSelf={"start"} display="flex" alignItems={"center"}>
@@ -73,17 +129,31 @@ const SignUp = () => {
                     <Typography>show password</Typography>
                 </Box>
 
+
                 <Box sx={{
                     marginTop: 'auto',
                     width: '90%',
                     marginBottom: "20px"
+
                 }}>
 
-                    <Button color="primary" variant="contained" fullWidth>
-                        Sign up
+                    <Button color="primary" variant="contained" fullWidth
+                        onClick={handelClickSignUp}>
+                        {showFormLogin ? "Login" : "Sign in"}
                     </Button>
 
+                    <Typography component='p' variant='body2'
+                        sx={{
+                            marginTop: 2, cursor: 'pointer', '&:hover': {
+                                color: "#2196f3"
+                            }
+                        }}
+                        onClick={() => { setShowFormLogin(!showFormLogin) }}>
+                        {showFormLogin ? 'Creer votre compte ' : 'Vous avez un compte ? connectez vous'}
+                    </Typography>
+
                 </Box>
+
 
 
             </Box>
@@ -98,6 +168,21 @@ const SignUp = () => {
                 </Link>
             </Button>
 
+
+            <>
+                <Snackbar open={pop.show}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: "left" }}
+                    autoHideDuration={3000}
+                >
+                    <Alert onClose={() => { setPop({ ...pop, show: false }) }} severity={pop.type}
+                        sx={{
+                            width: "300px",
+                            color: "black"
+                        }} >
+                        {pop.message}
+                    </Alert>
+                </Snackbar>
+            </>
 
 
         </Box >

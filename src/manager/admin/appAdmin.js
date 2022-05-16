@@ -10,11 +10,23 @@ import { useNavigate } from "react-router-dom";
 import Hotels from "./hotels";
 import Agences from "./agences";
 import SignOut from "./sign-out";
+import { activationCompteHotel } from "../../redux/adminSlice";
+import React from "react";
+
 
 
 const AppAdmin = () => {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    // gerer les donnes de l'hotel
+    const adminData = useSelector(state => state.admin);
+
+
+
+
+    // geer les donnes de l'agence
 
     return (
         <MaterialUIControllerProvider>
